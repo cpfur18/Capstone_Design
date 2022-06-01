@@ -101,11 +101,8 @@ class cpu_mark:
         time.sleep(2)
         self.cpu_croll(self.init_bs4(driver))
 
-        soup = self.init_bs4(driver)
-
-        self.cpu_croll(soup)
-
         # 브라우저 종료
         driver.close()
+
 result = cpu_mark()
 result.cpu_benchmark()
