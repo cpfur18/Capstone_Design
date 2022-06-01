@@ -26,6 +26,9 @@ class Prod_ratings(models.Model):
     prod_screen = models.IntegerField()
     prod_as = models.IntegerField()
 
+    def __str__(self):
+        return self.prod_id
+
 # CPU 벤치마크 자료
 class Passmark_cpu_info(models.Model):
     cpu_name = models.CharField(primary_key=True, max_length=30)
