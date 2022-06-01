@@ -4,11 +4,17 @@
 
 #Django import
 import os
+import sys
+
+#프로젝트 절대경로
+sys.path.append('D:\Capstone_Design\config')
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 
 # 웹프레임워크
 import django
 django.setup()
+from note_book_service.models import Prod, Prod_property
+
 
 # 셀레니움 import
 from selenium import webdriver
@@ -52,12 +58,15 @@ def init_bs4(driver):
 def button_click():
     comparison_price = "#listBodyDiv > div.list-body > div.list-body-cont > div.list-filter > div.list-filter-top > ul > li:nth-child(2) > a"
     WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.CSS_SELECTOR, comparison_price))).click()
-    review_count = "#listBodyDiv > div.list-body > div.list-body-cont > div.list-filter > div.list-filter-bot > ul > li:nth-child(6)"
-    WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.CSS_SELECTOR, review_count))).click()
+    new_prod = "#listBodyDiv > div.list-body > div.list-body-cont > div.list-filter > div.list-filter-bot > ul > li:nth-child(4)"
+    WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.CSS_SELECTOR, new_prod))).click()
+    # review_count = "#listBodyDiv > div.list-body > div.list-body-cont > div.list-filter > div.list-filter-bot > ul > li:nth-child(6)"
+    # WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.CSS_SELECTOR, review_count))).click()
 
 # 크롤링 함수
 def enuri_croll(soup):
     # 마지막 페이지까지 반복
+    id = 1
     # while spage <= lpage:
 
     # 상품 리스트에 저장
@@ -66,27 +75,31 @@ def enuri_croll(soup):
     # 더미 데이터 삭제
     #del notebook_list[30]
 
-    # class Prod(models.Model):
-    #     prod_num = models.AutoField(primary_key=True, verbose_name='노트북_번호')
-    #     prod_company = models.CharField(max_length=30, verbose_name='노트북_제조사')
-    #     prod_name = models.CharField(max_length=100, verbose_name='노트북_이름')
-    #     prod_price = models.CharField(max_length=100, verbose_name='노트북_가격')
-    #     prod_reg_date = models.CharField(max_length=100, verbose_name='노트북_등록일')
-    #     prod_review_count = models.IntegerField(verbose_name='노트북_리뷰수')
-
     for item_list in notebook_list:
         # 상품명, 스펙, 가격 변수 저장
+        model_id = item_list.attrs["data-model-origin"]
         company = item_list.select_one('li.item__etc--brand > a').text.strip()
         name = item_list.select_one('div.item__model > a').text.strip()
         price = item_list.select_one('div.opt--price > span').text.strip()
         # 2년 내 출시
         reg_date = item_list.select_one('li.item__etc--date').text.strip()
-        #90개씩 리뷰 개수 50개 이상
         review_count = item_list.select_one('li.item__etc--score').text.strip()
         spec = item_list.select_one('ul.item__attr').text.strip()
-        print(company, name, price, reg_date, review_count)
+        # print(model_id, company, name, price, reg_date, review_count)
 
-            #이미지 링크 변수 저장
+        # 상품 정보 DB저장
+        Prod(prod_id=model_id ,prod_company=company, prod_name=name, prod_price=price, prod_reg_date=reg_date, prod_review_count=review_count).save()
+
+        # 상품 옵션 DB 저장
+        spec_list = spec.split('|')
+        fk_prod = Prod.objects.get(prod_id=model_id)
+
+        for prod_list in spec_list:
+
+            Prod_property(prod_id=fk_prod, prod_property=prod_list).save()
+            # print(prod_list)
+
+        #이미지 링크 변수 저장
             # img_link = item_list.select_one('div.thumb_image > a > img').get('data-original')
             # if img_link == None:
             #     img_link = item_list.select_one('div.thumb_image > a > img').get('src')
