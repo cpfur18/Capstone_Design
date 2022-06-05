@@ -20,11 +20,13 @@ class Prod_property(models.Model):
 # 노트북 평가 수치
 class Prod_ratings(models.Model):
     prod_id = models.ForeignKey(Prod, primary_key=True, db_column="prod_id", on_delete=models.CASCADE)
-    prod_spec = models.IntegerField()
-    prod_price = models.IntegerField()
-    prod_portability = models.IntegerField()
-    prod_screen = models.IntegerField()
-    prod_as = models.IntegerField()
+    cpu = models.IntegerField()
+    gpu = models.IntegerField()
+    ram = models.IntegerField()
+    Storage = models.IntegerField()
+    gpu = models.IntegerField()
+    price = models.IntegerField()
+    screen = models.IntegerField()
 
     def __str__(self):
         return self.prod_id

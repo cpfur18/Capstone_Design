@@ -199,126 +199,35 @@ https://templatemo.com/tm-559-zay-shop
                 <div class="col-xs">
                     <div class="card mb-3">
                         <div class="row g-0">
-                            <div class="col-md-4">
-                                <a href="shop-single.html">
-                                    <img src="./test img/legion 5 pro r7.jpg" class="card-img-top" alt="...">
-                                </a>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <a href="shop-single.html" class="h2 text-decoration-none text-dark">
-                                        레노버 LEGION 5 Pro 16ACH R7 STORM </a>
-                                    <p class="card-text">
-                                        <br>
-                                        16인치/AMD/라이젠7-4세대/RTX3060
-                                        <br><br>
-                                        #무거운 #뛰어난 #발열 #게이밍
-                                    </p>
-                                    <br><br><br>
-                                    <p class="text-muted"> 1,625,000원</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs">
-                    <div class="card mb-3">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <a href="shop-single.html">
-                                    <img src="./test img/legion 5i pro.jpg" class="card-img-top" alt="...">
-                                </a>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <a href="shop-single.html" class="h2 text-decoration-none text-dark">
-                                        레노버 LEGION 5i Pro 16ITH I7 STORM 3060  </a>
-                                    <p class="card-text">
-                                        <br>
-                                        16인치/AMD/라이젠7-4세대/RTX3060
-                                        <br><br>
-                                        #무거운 #뛰어난 #발열 #게이밍
-                                    </p>
-                                    <br><br><br>
-                                    <p class="text-muted"> 1,625,000원</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs">
-                    <div class="card mb-3">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <a href="shop-single.html">
-                                    <img src="./test img/gram16 76k.jpg" class="card-img-top" alt="...">
-                                </a>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <a href="shop-single.html" class="h2 text-decoration-none text-dark">
-                                        LG전자 2022 그램16(12세대) 16ZD90Q-EX76K </a>
-                                    <p class="card-text">
-                                        <br>
-                                        16인치/인텔/코어i7-12세대/RTX2050
-                                        <br><br>
-                                        #무거운 #뛰어난 #발열 #게이밍
-                                    </p>
-                                    <br><br><br>
-                                    <p class="text-muted"> 2,249,000원</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs">
-                    <div class="card mb-3">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <a href="shop-single.html">
-                                    <img src="./test img/gp66.jpg" class="card-img-top" alt="...">
-                                </a>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <a href="shop-single.html" class="h2 text-decoration-none text-dark">
-                                        MSI GP시리즈 GP66 Leopard 11UG </a>
-                                    <p class="card-text">
-                                        <br>
-                                        15.6인치/인텔/코어i7-11세대/RTX3070
-                                        <br><br>
-                                        #무거운 #뛰어난 #발열 #게이밍
-                                    </p>
-                                    <br><br><br>
-                                    <p class="text-muted"> 1,637,640원</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-xs">
-                    <div class="card mb-3">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <a href="shop-single.html">
-                                    <img src="./test img/gram16 56k.jpg" class="card-img-top" alt="...">
-                                </a>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <a href="shop-single.html" class="h2 text-decoration-none text-dark">
-                                        LG전자 2022 그램16(12세대) 16ZD90Q-EX56K </a>
-                                    <p class="card-text">
-                                        <br>
-                                        16인치/인텔/코어i5-12세대/RTX2050
-                                        <br><br>
-                                        #무거운 #뛰어난 #발열 #게이밍
-                                    </p>
-                                    <br><br><br>
-                                    <p class="text-muted"> 2,049,000원 </p>
-                                </div>
-                            </div>
+                            {% if best_Prod_list %}
+                                {% for best_Prod in best_Prod_list %}
+                                    <div class="col-md-4">
+                                        <a href="shop-single.html">
+                                            <img src="./test img/legion 5 pro r7.jpg" class="card-img-top" alt="...">
+                                        </a>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">
+                                                {{ best_Prod.prod_name }} </a>
+                                            <p class="card-text">
+                                                <br>
+                                                {% for spec in best_Prod_list_spec %}
+                                                    {% if spec.prod_id_id == best_Prod.prod_id %}
+                                                        {{ spec.prod_property }} |
+                                                    {% endif %}
+                                                {% endfor %}
+                                                <br>
+                                                {{ best_Prod.prod_reg_date }}
+                                                <br><br>
+                                                {{ best_Prod.prod_review_count }}
+                                            </p>
+                                            <br><br><br>
+                                            <p class="text-muted"> {{ best_Prod.prod_price }}</p>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
                         </div>
                     </div>
                 </div>
