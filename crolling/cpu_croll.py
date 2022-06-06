@@ -58,7 +58,6 @@ class cpu_mark:
     def sort_button(self, driver):
         sorting = "#cputable > thead > tr > th:nth-child(4)"
         sort = "#cputable_length > label > select > option:nth-child(4)"
-
         WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.CSS_SELECTOR, sorting))).click()
         WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.CSS_SELECTOR, sort))).click()
 
@@ -93,12 +92,12 @@ class cpu_mark:
         # 1차 크롤링
         self.select_button(4, driver)
         self.sort_button(driver)
-        time.sleep(2)
+        time.sleep(3)
         self.cpu_croll(self.init_bs4(driver))
 
         # 2차 크롤링
         self.select_button(2, driver)
-        time.sleep(2)
+        time.sleep(3)
         self.cpu_croll(self.init_bs4(driver))
 
         # 브라우저 종료

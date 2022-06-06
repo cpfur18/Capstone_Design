@@ -1,6 +1,8 @@
 """
 에누리 크롤링 코드
 """
+#멀티 프로세싱
+from multiprocessing import Pool
 
 #Django import
 import os
@@ -13,7 +15,8 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 # 웹프레임워크
 import django
 django.setup()
-from note_book_service.models import Prod, Prod_property
+from note_book_service.models import Prod, Prod_property, Prod_img
+import urllib.request
 
 
 # 셀레니움 import
@@ -26,6 +29,7 @@ from selenium.webdriver.support import expected_conditions as EC
 # BeautifulSoup import
 from bs4 import BeautifulSoup
 import time
+
 class enuri:
     # 크롬 드라이버 초기화
     def init_driver(self):
@@ -58,60 +62,70 @@ class enuri:
     def button_click(self, driver):
         comparison_price = "#listBodyDiv > div.list-body > div.list-body-cont > div.list-filter > div.list-filter-top > ul > li:nth-child(2) > a"
         WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.CSS_SELECTOR, comparison_price))).click()
+        time.sleep(1)
         new_prod = "#listBodyDiv > div.list-body > div.list-body-cont > div.list-filter > div.list-filter-bot > ul > li:nth-child(4)"
         WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.CSS_SELECTOR, new_prod))).click()
-        # review_count = "#listBodyDiv > div.list-body > div.list-body-cont > div.list-filter > div.list-filter-bot > ul > li:nth-child(6)"
-        # WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.CSS_SELECTOR, review_count))).click()
+        time.sleep(1)
 
     # 크롤링 함수
     def enuri_crolling(self, driver, spage, lpage):
+
+        lpage /= 10
+        last = 0
+        count = 0
         # 마지막 페이지까지 반복
-        while spage <= lpage:
+        while last != lpage:
             soup = self.init_bs4(driver)
+            time.sleep(1)
             # 상품 리스트에 저장
             notebook_list = soup.select('li.prodItem')
-
+            time.sleep(1)
             for item_list in notebook_list:
-                # 상품명, 스펙, 가격 변수 저장
+                # 상품명, 가격 저장
                 model_id = item_list.attrs["data-model-origin"]
                 company = item_list.select_one('li.item__etc--brand > a').text.strip()
                 name = item_list.select_one('div.item__model > a').text.strip()
                 price = item_list.select_one('div.opt--price > span').text.strip()
                 # 2년 내 출시
                 reg_date = item_list.select_one('li.item__etc--date').text.strip()
-                review_count = item_list.select_one('li.item__etc--score').text.strip()
+                # 리뷰 인덱싱 후 저장
+                review_count = item_list.select_one('li.item__etc--score').text.split()
+                count += 1
+
+                # 스펙 저장
                 spec = item_list.select_one('ul.item__attr').text.strip()
-                print(model_id, company, name, price, reg_date, review_count)
-
+                if not review_count:
+                    print(model_id, company, name, price, reg_date)
+                else:
+                    print(model_id, company, name, price, reg_date, review_count[0], review_count[1])
                 # 상품 정보 DB저장
-                Prod(prod_id=model_id ,prod_company=company, prod_name=name, prod_price=price, prod_reg_date=reg_date, prod_review_count=review_count).save()
-
+                if not review_count:
+                    Prod(prod_id=model_id, prod_company=company, prod_name=name, prod_price=price, prod_reg_date=reg_date).save()
+                else:
+                    Prod(prod_id=model_id, prod_company=company, prod_name=name, prod_price=price, prod_reg_date=reg_date, prod_review_grade=review_count[0], prod_review_count=review_count[1].strip('('')')).save()
                 # 상품 옵션 DB 저장
                 spec_list = spec.split('|')
                 fk_prod = Prod.objects.get(prod_id=model_id)
 
                 for prod_list in spec_list:
-
                     Prod_property(prod_id=fk_prod, prod_property=prod_list).save()
                     # print(prod_list)
-
-                #이미지 링크 변수 저장
-                    # img_link = item_list.select_one('div.thumb_image > a > img').get('data-original')
-                    # if img_link == None:
-                    #     img_link = item_list.select_one('div.thumb_image > a > img').get('src')
-
-                    # 상품 스펙 인덱싱 후 리스트 저장
-                    # spec_number = spec.split(' / ')
-
-                    # print(name, spec)
-
+            print('===============================================')
+            print('반복횟수 : ', count)
             # 페이지 변수 증가
             spage += 1
 
+
             # 페이지 넘기기
             nextPage = 'div.paging__inner > a:nth-child({})'.format(spage)
-            # 페이지 버튼 클릭
-            WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.CSS_SELECTOR, nextPage))).click()
+            nextbutton = '#listBodyDiv > div.list-body > div.list-body-cont > div.goods-list > div.paging > div > button.paging__btn--next > i'
+            if spage == 11:
+                # 페이지 버튼 클릭
+                WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.CSS_SELECTOR, nextbutton))).click()
+                spage = 1
+                last += 1
+            else:
+                WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.CSS_SELECTOR, nextPage))).click()
 
             # BeautifulSoup 값 삭제
             del soup
@@ -123,12 +137,87 @@ class enuri:
         driver = self.init_driver()
 
         self.button_click(driver)
-        time.sleep(2)
+        time.sleep(4)
 
-        self.enuri_crolling(driver, 1, 6)
+        self.enuri_crolling(driver, 1, 30)
 
         # 브라우저 종료
+        print("크롤링이 끝났습니다.")
         driver.close()
 
-result = enuri()
-result.enuri_croll()
+# 크롤링 클래스 상속
+class enuri_img(enuri):
+    def enuri_crolling_img(self, driver, spage, lpage):
+        lpage /= 10
+        last = 0
+        count = 0
+        # 마지막 페이지까지 반복
+        while last != lpage:
+            soup = self.init_bs4(driver)
+            time.sleep(1)
+            # 상품 리스트에 저장
+            notebook_list = soup.select('li.prodItem')
+            time.sleep(1)
+            for item_list in notebook_list:
+                # 상품명, 가격 저장
+                model_id = item_list.attrs["data-model-origin"]
+                images = item_list.select_one("div.item__thumb > a > img").get('src')
+                # img_url.append(images)
+                print(model_id, " : ", images)
+                urllib.request.urlretrieve(images, f'D:/Capstone_Design/static/assets/img/{model_id}.jpg')
+
+                fk_prod = Prod.objects.get(prod_id=model_id)
+                Prod_img(prod_id=fk_prod, prod_img_src=f'static/assets/img/{model_id}').save()
+                count += 1
+
+            # class Prod_img(models.Model):
+            #     prod_id = models.ForeignKey(Prod, db_column="prod_id", on_delete=models.CASCADE)
+            #     prod_img_src = models.CharField(max_length=1000)
+            print('===============================================')
+            print('반복횟수 : ', count)
+            # 페이지 변수 증가
+            spage += 1
+
+            # 페이지 넘기기
+            nextPage = 'div.paging__inner > a:nth-child({})'.format(spage)
+            nextbutton = '#listBodyDiv > div.list-body > div.list-body-cont > div.goods-list > div.paging > div > button.paging__btn--next > i'
+            if spage == 11:
+                # 페이지 버튼 클릭
+                WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.CSS_SELECTOR, nextbutton))).click()
+                spage = 1
+                last += 1
+            else:
+                WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.CSS_SELECTOR, nextPage))).click()
+
+            # BeautifulSoup 값 삭제
+            del soup
+
+            # 10초간 대기
+            time.sleep(3)
+
+    def enuri_img_croll(self):
+        driver = self.init_driver()
+
+        self.button_click(driver)
+        time.sleep(2)
+
+        self.enuri_crolling_img(driver, 1, 30)
+
+        # 브라우저 종료
+        print("크롤링이 끝났습니다.")
+        driver.close()
+
+if __name__=='__main__':
+    start_time = time.time()
+    # result = enuri()
+    # result.enuri_croll()
+
+    # 이미지 크롤링
+    result = enuri_img()
+    result.enuri_img_croll()
+
+    #멀티 프로세싱
+    # pool = Pool(processes=4)
+    # pool.map(result.enuri_croll())
+    # pool.close()
+    # pool.join()

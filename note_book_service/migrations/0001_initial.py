@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
                 ('prod_name', models.CharField(max_length=100)),
                 ('prod_price', models.CharField(max_length=100)),
                 ('prod_reg_date', models.CharField(max_length=100)),
-                ('prod_review_count', models.CharField(max_length=100, null=True)),
+                ('prod_review_count', models.IntegerField(max_length=100, null=True)),
             ],
         ),
         migrations.CreateModel(

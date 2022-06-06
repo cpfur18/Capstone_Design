@@ -9,7 +9,7 @@ def index(request):
     now = timezone.now()
     kst = now.strftime('%y.%m')
 
-    best_Prod_list = Prod.objects.filter(prod_reg_date__contains=22.05).order_by('-prod_id')[:5]
+    best_Prod_list = Prod.objects.filter(prod_reg_date__contains=kst).order_by('-prod_id')[:5]
     best_Prod_list_spec = Prod_property.objects.filter(prod_id__in=best_Prod_list.values('prod_id'))
 
     context = {'best_Prod_list' : best_Prod_list,
@@ -17,3 +17,12 @@ def index(request):
                }
     return render(request, 'note_book_service/index.html', context)
 
+# def gaming(request):
+#
+# def coding(request):
+#
+# def video_edit(request):
+#
+# def office(request):
+#
+# def index(request):

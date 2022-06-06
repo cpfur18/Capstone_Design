@@ -1,88 +1,6 @@
-<!DOCTYPE html>
-<html lang="kr">
-
-<head>
-    <title>Notebook World</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    {% load static %}
-    <link rel="apple-touch-icon" href="assets/img/apple-icon.png">
-    <!--
-    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
-    -->
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/templatemo.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/custom.css' %}" type="text/css">
-
-    <!-- Load fonts style after rendering the layout styles -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
-    <link rel="stylesheet" href="{% static 'fontawesome.min.css' %}" type="text/css">
-<!--
-    
-TemplateMo 559 Zay Shop
-
-https://templatemo.com/tm-559-zay-shop
-
--->
-</head>
-
-<body>
-
-
-    <!-- Header -->
-    <nav class="navbar navbar-expand-lg navbar-light shadow">
-        <div class="container d-flex justify-content-between align-items-center">
-
-            <a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
-                Notebook World
-            </a>
-
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
-                <div class="flex-fill">
-                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.html">홈</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="about.html">맞춤추천</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="shop.html">직접탐색</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="contact.html">커뮤니티</a>
-                        </li>
-                    </ul>
-                </div>
-                
-                <div class="navbar align-self-center d-flex">
-                    <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="inputMobileSearch" placeholder="Search ...">
-                            <div class="input-group-text">
-                                <i class="fa fa-fw fa-search"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
-                        <i class="fa fa-fw fa-search text-dark mr-2"></i>
-                    </a>
-                    <a class="nav-icon position-relative text-decoration-none" href="#">
-                        <i class="fa fa-fw fa-user text-dark mr-3"></i>
-                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"></span>
-                    </a>
-                </div>
-            </div>
-
-        </div>
-    </nav>
-    <!-- Close Header -->
-
-    <!-- Modal -->
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
     <div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="w-100 pt-1 mb-5 text-right">
@@ -98,8 +16,6 @@ https://templatemo.com/tm-559-zay-shop
             </form>
         </div>
     </div>
-
-
 
     <!-- Start Banner Hero -->
     <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
@@ -162,7 +78,6 @@ https://templatemo.com/tm-559-zay-shop
     </div>
     <!-- End Banner Hero -->
 
-
     <section class="container py-5">
         <div class="row text-center pt-3">
         </div>
@@ -186,7 +101,6 @@ https://templatemo.com/tm-559-zay-shop
         </div>
     </section>
 
-
     <!-- start 가장 많이 본 상품 -->
     <section class="bg-light">
         <div class="container py-5">
@@ -203,7 +117,7 @@ https://templatemo.com/tm-559-zay-shop
                                 {% for best_Prod in best_Prod_list %}
                                     <div class="col-md-4">
                                         <a href="shop-single.html">
-                                            <img src="./test img/legion 5 pro r7.jpg" class="card-img-top" alt="...">
+                                            <img src="{% get_static_prefix %}assets/img/{{ best_Prod.prod_id }}.jpg" alt={{ best_Prod.prod_id }}, class="card-img-top">
                                         </a>
                                     </div>
                                     <div class="col-md-8">
@@ -217,10 +131,12 @@ https://templatemo.com/tm-559-zay-shop
                                                         {{ spec.prod_property }} |
                                                     {% endif %}
                                                 {% endfor %}
-                                                <br>
-                                                {{ best_Prod.prod_reg_date }}
-                                                <br><br>
-                                                {{ best_Prod.prod_review_count }}
+                                                {% if best_Prod.prod_reg_date == True %}
+                                                    <br>
+                                                    {{ best_Prod.prod_reg_date }}
+                                                    <br><br>
+                                                    {{ best_Prod.prod_review_count }}
+                                                {% endif %}
                                             </p>
                                             <br><br><br>
                                             <p class="text-muted"> {{ best_Prod.prod_price }}</p>
@@ -235,15 +151,4 @@ https://templatemo.com/tm-559-zay-shop
         </div>
     </section>
     <!-- End 가장 많이 본 상품 -->
-
-
-    <!-- Start Script -->
-    <script src="assets/js/jquery-1.11.0.min.js"></script>
-    <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/templatemo.js"></script>
-    <script src="assets/js/custom.js"></script>
-    <!-- End Script -->
-</body>
-
-</html>
+{% endblock %}

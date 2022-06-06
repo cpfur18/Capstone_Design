@@ -27,11 +27,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'sign.CustomUser'
+
 
 # Application definition
 
 INSTALLED_APPS = [
     'note_book_service.apps.NoteBookServiceConfig',
+    'sign.apps.SignConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -104,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ko-kr'
 
 # TIME_ZONE = 'UTC'
 TIME_ZONE = 'Asia/Seoul'
@@ -128,3 +131,8 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# 로그인시 이동
+LOGIN_REDIRECT_URL = '/'
+# 로그아웃시 이동
+LOGOUT_REDIRECT_URL = '/'
