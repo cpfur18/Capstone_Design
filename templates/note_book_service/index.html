@@ -1,23 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
-    <div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="w-100 pt-1 mb-5 text-right">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="" method="get" class="modal-content modal-body border-0 p-0">
-                <div class="input-group mb-2">
-                    <input type="text" class="form-control" id="inputModalSearch" name="q" placeholder="Search ...">
-                    <button type="submit" class="input-group-text bg-success text-light">
-                        <i class="fa fa-fw fa-search text-white"></i>
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Start Banner Hero -->
+    <!--배너-->
     <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
         <ol class="carousel-indicators">
             <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="0" class="active"></li>
@@ -69,60 +53,71 @@
                 </div>
             </div>
         </div>
+
+        <!--오른쪽으로 이동-->
         <a class="carousel-control-prev text-decoration-none w-auto ps-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="prev">
             <i class="fas fa-chevron-left"></i>
         </a>
+
+        <!--왼쪽으로 이동-->
         <a class="carousel-control-next text-decoration-none w-auto pe-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="next">
             <i class="fas fa-chevron-right"></i>
         </a>
     </div>
-    <!-- End Banner Hero -->
 
-    <section class="container py-5">
-        <div class="row text-center pt-3">
+<!--카테고리 고르기-->
+<section class="container-fluid py-0">
+    <div class="row">
+        <div class="col-12 col-lg-1 d-lg-block" ></div>
+        <div class="col-12 col-lg-2 mt-3 nav-item col-md-2">
+            <a href="#"></a>
+            <p class="text-center"><a class="nav-link text-muted h3" href="#best" id="best" onclick="productListChange('best')">인기</a></p>
+        </div>
+        <div class="col-12 col-lg-2 mt-3 nav-item col-md-2">
+            <a href="#"></a>
+            <p class="text-center"><a class="nav-link text-muted h3" href="#gaming" id="gaming" onclick="productListChange('gaming')">게임용</a></p>
+        </div>
+        <div class="col-12 col-lg-2 mt-3 nav-item col-md-3">
+            <a href="#"></a>
+            <p class="text-center"><a class="nav-link text-muted h3" href="#videoEdit" id="videoEdit" onclick="productListChange('videoEdit')">영상편집</a></p>
+        </div>
+        <div class="col-12 col-lg-2 mt-3 nav-item col-md-2">
+            <a href="#"></a>
+            <p class="text-center"><a class="nav-link text-muted h3" href="#coding" id="coding" onclick="productListChange('coding')">코딩용</a></p>
+        </div>
+        <div class="col-12 col-lg-2 mt-3 nav-item col-md-2">
+            <a href="#"></a>
+            <p class="text-center"><a class="nav-link text-muted h3" href="#deskJob" id="deskJob" onclick="productListChange('deskJob')">학습/사무용</a></p>
+        </div>
+
+        <div class="col-12 col-lg-1 d-lg-block"></div>
+    </div>
+</section>
+<div class="border-top my-3"></div>
+
+<!--    상품 품목 출력-->
+<section >
+    <div class="container py-5">
+        <div class="row text-center py-3">
+            <div class="col-lg-6 m-auto">
+                <h1 class="h1">TOP5</h1>
+            </div>
         </div>
         <div class="row">
-            <div class="col-12 col-md-3 p-5 mt-3">
-                <a href="#"><img src="{% static 'assets/img/legion 5 pro r7.jpg' %}" class="rounded-circle img-fluid border"></a>
-                <p class="text-center"><a class="btn btn-success">게임용</a></p>
-            </div>
-            <div class="col-12 col-md-3 p-5 mt-3">
-                <a href="#"><img src="{% static 'assets/img/gram16 76k.jpg' %}" class="rounded-circle img-fluid border"></a>
-                <p class="text-center"><a class="btn btn-success">개발용</a></p>
-            </div>
-            <div class="col-12 col-md-3 p-5 mt-3">
-                <a href="#"><img src="{% static 'assets/img/gp66.jpg' %}" class="rounded-circle img-fluid border"></a>
-                <p class="text-center"><a class="btn btn-success">전문작업용</a></p>
-            </div>
-            <div class="col-12 col-md-3 p-5 mt-3">
-                <a href="#"><img src="{% static 'assets/img/gram16 56k.jpg' %}" class="rounded-circle img-fluid border"></a>
-                <p class="text-center"><a class="btn btn-success">사무용</a></p>
-            </div>
-        </div>
-    </section>
-
-    <!-- start 가장 많이 본 상품 -->
-    <section class="bg-light">
-        <div class="container py-5">
-            <div class="row text-center py-3">
-                <div class="col-lg-6 m-auto">
-                    <h1 class="h1">가장 많이 본 상품 TOP5</h1>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs">
-                    <div class="card mb-3">
-                        <div class="row g-0">
-                            {% if best_Prod_list %}
-                                {% for best_Prod in best_Prod_list %}
+            <div class="col-xs">
+                <div class="card mb-3">
+                    <div class="row g-1">
+                        {% if best_Prod_list %}
+                            {% for best_Prod in best_Prod_list %}
+                                <div class="row">
                                     <div class="col-md-4">
-                                        <a href="shop-single.html">
+                                        <a href="">
                                             <img src="{% get_static_prefix %}assets/img/{{ best_Prod.prod_id }}.jpg" alt={{ best_Prod.prod_id }}, class="card-img-top">
                                         </a>
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">
-                                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">
+                                            <a href="" class="h2 text-decoration-none text-dark">
                                                 {{ best_Prod.prod_name }} </a>
                                             <p class="card-text">
                                                 <br>
@@ -130,25 +125,31 @@
                                                     {% if spec.prod_id_id == best_Prod.prod_id %}
                                                         {{ spec.prod_property }} |
                                                     {% endif %}
+
                                                 {% endfor %}
-                                                {% if best_Prod.prod_reg_date == True %}
-                                                    <br>
-                                                    {{ best_Prod.prod_reg_date }}
+                                                {% if best_Prod.prod_review_count >= 1 %}
                                                     <br><br>
-                                                    {{ best_Prod.prod_review_count }}
+                                                    평점 : {{ best_Prod.prod_review_grade }}
+                                                    &nbsp&nbsp&nbsp
+                                                    리뷰 수 : {{ best_Prod.prod_review_count }}
                                                 {% endif %}
+                                                <br><br>
+                                                {{ best_Prod.prod_reg_date }}
                                             </p>
                                             <br><br><br>
                                             <p class="text-muted"> {{ best_Prod.prod_price }}</p>
                                         </div>
                                     </div>
-                                {% endfor %}
-                            {% endif %}
-                        </div>
+                                    <div></div>
+                                </div>
+                                <div class="border-top my-3"></div>
+                            {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!-- End 가장 많이 본 상품 -->
+    </div>
+</section>
+<!-- End 가장 많이 본 상품 -->
 {% endblock %}

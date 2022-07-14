@@ -81,24 +81,23 @@ class enuri:
             notebook_list = soup.select('li.prodItem')
             time.sleep(1)
             for item_list in notebook_list:
-                # 상품명, 가격 저장
+                # 상품명, 제조사 가격, 상품 등록일 저장
                 model_id = item_list.attrs["data-model-origin"]
                 company = item_list.select_one('li.item__etc--brand > a').text.strip()
                 name = item_list.select_one('div.item__model > a').text.strip()
                 price = item_list.select_one('div.opt--price > span').text.strip()
-                # 2년 내 출시
                 reg_date = item_list.select_one('li.item__etc--date').text.strip()
-                # 리뷰 인덱싱 후 저장
+                # 리뷰 평점 및 개수 인덱싱 후 저장
                 review_count = item_list.select_one('li.item__etc--score').text.split()
                 count += 1
 
-                # 스펙 저장
+                # 상세 옵션
                 spec = item_list.select_one('ul.item__attr').text.strip()
                 if not review_count:
                     print(model_id, company, name, price, reg_date)
                 else:
                     print(model_id, company, name, price, reg_date, review_count[0], review_count[1])
-                # 상품 정보 DB저장
+                # 기본 정보 DB저장
                 if not review_count:
                     Prod(prod_id=model_id, prod_company=company, prod_name=name, prod_price=price, prod_reg_date=reg_date).save()
                 else:
@@ -145,7 +144,7 @@ class enuri:
         print("크롤링이 끝났습니다.")
         driver.close()
 
-# 크롤링 클래스 상속
+# 이미지 크롤링
 class enuri_img(enuri):
     def enuri_crolling_img(self, driver, spage, lpage):
         lpage /= 10
@@ -170,9 +169,7 @@ class enuri_img(enuri):
                 Prod_img(prod_id=fk_prod, prod_img_src=f'static/assets/img/{model_id}').save()
                 count += 1
 
-            # class Prod_img(models.Model):
-            #     prod_id = models.ForeignKey(Prod, db_column="prod_id", on_delete=models.CASCADE)
-            #     prod_img_src = models.CharField(max_length=1000)
+ 
             print('===============================================')
             print('반복횟수 : ', count)
             # 페이지 변수 증가

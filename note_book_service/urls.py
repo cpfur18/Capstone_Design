@@ -5,7 +5,9 @@ app_name = 'main'
 
 urlpatterns = [
     path('', views.index, name='index'),
-    # path('gaming/', views),
+    # path('search/', views.SearchFormView.as_view(), name='search'),
+
+    path('shop/<prod_id>/', views.shop, name='prod_info'),
     # path('coding/', views),
     # path('video_edit/', views),
     # path('office/', views),

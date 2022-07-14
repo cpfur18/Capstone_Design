@@ -9,20 +9,21 @@ def index(request):
     now = timezone.now()
     kst = now.strftime('%y.%m')
 
-    best_Prod_list = Prod.objects.filter(prod_reg_date__contains=kst).order_by('-prod_id')[:5]
+    # best_Prod_list = Prod.objects.filter(prod_reg_date__contains=kst).order_by('-prod_id')[:5]
+    # best_Prod_list_spec = Prod_property.objects.filter(prod_id__in=best_Prod_list.values('prod_id'))
+    best_Prod_list = Prod.objects.order_by('-prod_review_count')[:5]
     best_Prod_list_spec = Prod_property.objects.filter(prod_id__in=best_Prod_list.values('prod_id'))
 
     context = {'best_Prod_list' : best_Prod_list,
-               'best_Prod_list_spec' : best_Prod_list_spec
+               'best_Prod_list_spec' : best_Prod_list_spec,
                }
     return render(request, 'note_book_service/index.html', context)
 
-# def gaming(request):
-#
-# def coding(request):
-#
-# def video_edit(request):
-#
-# def office(request):
-#
-# def index(request):
+def shop(request, prod_id):
+    Prod_list = Prod.objects.filter(prod_id__contains=prod_id)
+    Prod_list_spec = Prod_property.objects.filter(prod_id__in=Prod_list.values('prod_id'))
+
+    context = {'Prod_list': Prod_list,
+               'Prod_list_spec': Prod_list_spec,
+               }
+    return render(request, 'note_book_service/shop-single.html', context)
