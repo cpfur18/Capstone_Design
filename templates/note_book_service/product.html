@@ -1,0 +1,272 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<!--'Prod_list': Prod_list,
+    'Prod_list_spec': Prod_list_spec,-->
+<section class="bg-light">
+    <div class="container pb-5">
+        <div class="row">
+            <div class="col-lg-5 mt-5">
+                {% for Prod in Prod_list %}
+                <div class="card mb-3">
+                    <img class="card-img img-fluid" src="{% get_static_prefix %}assets/img/{{ Prod.prod_id }}.jpg" alt="Card image cap" id="product-detail">
+                </div>
+            </div>
+            <!-- col end -->
+            <div class="col-lg-7 mt-5">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="h2">{{ Prod.prod_name }}</h1>
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <h6>최저가:</h6>
+                            </li>
+                            <li class="list-inline-item">
+                                <p class="text-muted"><strong>{{ Prod.prod_price }}</strong></p>
+                            </li>
+                        </ul>
+                        <h6>사용자가 등록한 태그:</h6>
+                        <div class="row">
+                            <div class="col-md-3">#게이밍</div>
+                            <div class="col-md-3">#뛰어난</div>
+                            <div class="col-md-3">#무거운</div>
+                            <div class="col-md-3">#발열</div>
+                        </div>
+
+                        <br>
+                            <input type="hidden" name="product-title" value="Activewear">
+                            <div class="row pb-3">
+                                <div class="col d-grid">
+                                    <button type="button" class="btn btn-success btn-lg" value="interest">관심 상품 등록</button>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    <!-- start 상세설명 -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <h1 class="h2">성능 : </h1>
+            </div>
+            <br>
+            <div class="row">
+                <p>
+                CPU/GPU/메모리(램)/저장장치 4가지 요소를 종합적으로 평가했을 때 "매우 우수"에 해당하는 처리 성능을 가진 제품입니다.
+                </p>
+            </div>
+            <div class="row">
+                <br><br>
+                <p>
+                - CPU : <br>
+                - GPU : <br>
+                - 메모리(램) : <br>
+                - 저장장치 :
+                </p>
+            </div>
+            <br>
+            <div class="row">
+                <h1 class="h2">CPU : </h1>
+            </div>
+            <br>
+            <div class="row">
+                <h1 class="h5">라이젠 7-4세대</h1>
+                <p>
+                 9코어 16스래드, 기본3.2GHz 최대4.4GHz 클럭
+                <br><br>
+                 AMD 제품 중 높은 등급에 해당하는 라이젠7 시리즈 CPU가 탑재되어 있으며, 가장 최근인 2020년 출시된 4세대 제품입니다. 세부 사양에 따라 차이가 있지만 일반적으로 고사양 작업과 게임용으로 사용되는 등급의 CPU입니다.<br>
+                </p>
+                <h5 class="h5">세부타입 : H</h1>
+                    <p>
+                        CPU넘버 끝자리에 'H'가 붙어있는 모델로, 모바일용 고성능 CPU를 의미합니다.<br>
+                </p>
+                <h5 class="h5">내장 그래픽 탑재</h1>
+                    <p>
+                        AMD의 Radeon Graphics 내장 그래픽이 탑재된 CPU입니다.<br>
+                </p>
+                <h5 class="h5">CPU 벤치마크 점수 : 21488점</h1>
+                    <p>
+                        2022년 4월, PassMark 기준 벤치마크 점수는 21488점으로,
+                        현재 판매되는 노트북에 탑재된 CPU 중 상위 23% 이내 점수에 해당하는 비교적 뛰어난 성능의 제품입니다.<br>
+                </p>
+            </div>
+            <br>
+        </div>
+    </section>
+{% endfor %}
+    <!-- End 상세설명 -->
+    <section class="bg-light">
+        <div class="container pb-5">
+            <div class="row text-center py-3">
+                <div class="col-lg-6 m-auto">
+                    <h1 class="h1">유사한 상품</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs">
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <a href="product.html">
+                                    <img src="./test img/legion 5 pro r7.jpg" class="card-img-top" alt="...">
+                                </a>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <a href="product.html" class="h2 text-decoration-none text-dark">
+                                        레노버 LEGION 5 Pro 16ACH R7 STORM </a>
+                                    <p class="card-text">
+                                        <br>
+                                        16인치/AMD/라이젠7-4세대/RTX3060
+                                        <br><br>
+                                        #무거운 #뛰어난 #발열 #게이밍
+                                    </p>
+                                    <br><br><br>
+                                    <p class="text-muted"> 1,625,000원</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs">
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <a href="product.html">
+                                    <img src="./test img/legion 5i pro.jpg" class="card-img-top" alt="...">
+                                </a>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <a href="product.html" class="h2 text-decoration-none text-dark">
+                                        레노버 LEGION 5i Pro 16ITH I7 STORM 3060  </a>
+                                    <p class="card-text">
+                                        <br>
+                                        16인치/AMD/라이젠7-4세대/RTX3060
+                                        <br><br>
+                                        #무거운 #뛰어난 #발열 #게이밍
+                                    </p>
+                                    <br><br><br>
+                                    <p class="text-muted"> 1,625,000원</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs">
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <a href="product.html">
+                                    <img src="./test img/gram16 76k.jpg" class="card-img-top" alt="...">
+                                </a>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <a href="product.html" class="h2 text-decoration-none text-dark">
+                                        LG전자 2022 그램16(12세대) 16ZD90Q-EX76K </a>
+                                    <p class="card-text">
+                                        <br>
+                                        16인치/인텔/코어i7-12세대/RTX2050
+                                        <br><br>
+                                        #무거운 #뛰어난 #발열 #게이밍
+                                    </p>
+                                    <br><br><br>
+                                    <p class="text-muted"> 2,249,000원</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs">
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <a href="product.html">
+                                    <img src="./test img/gp66.jpg" class="card-img-top" alt="...">
+                                </a>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <a href="product.html" class="h2 text-decoration-none text-dark">
+                                        MSI GP시리즈 GP66 Leopard 11UG </a>
+                                    <p class="card-text">
+                                        <br>
+                                        15.6인치/인텔/코어i7-11세대/RTX3070
+                                        <br><br>
+                                        #무거운 #뛰어난 #발열 #게이밍
+                                    </p>
+                                    <br><br><br>
+                                    <p class="text-muted"> 1,637,640원</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-xs">
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <a href="product.html">
+                                    <img src="./test img/gram16 56k.jpg" class="card-img-top" alt="...">
+                                </a>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <a href="product.html" class="h2 text-decoration-none text-dark">
+                                        LG전자 2022 그램16(12세대) 16ZD90Q-EX56K </a>
+                                    <p class="card-text">
+                                        <br>
+                                        16인치/인텔/코어i5-12세대/RTX2050
+                                        <br><br>
+                                        #무거운 #뛰어난 #발열 #게이밍
+                                    </p>
+                                    <br><br><br>
+                                    <p class="text-muted"> 2,049,000원 </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Start Slider Script -->
+    <script src="assets/js/slick.min.js"></script>
+    <script>
+        $('#carousel-related-product').slick({
+            infinite: true,
+            arrows: false,
+            slidesToShow: 4,
+            slidesToScroll: 3,
+            dots: true,
+            responsive: [{
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3
+                    }
+                },
+                {
+                    breakpoint: 600,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 3
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 3
+                    }
+                }
+            ]
+        });
+    </script>
+{% endblock %}

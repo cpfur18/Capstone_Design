@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+{% block content %}
+    <!-- Close Header -->
+
+    <!-- Modal -->
+    <div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="w-100 pt-1 mb-5 text-right">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="" method="get" class="modal-content modal-body border-0 p-0">
+                <div class="input-group mb-2">
+                    <input type="text" class="form-control" id="inputModalSearch" name="q" placeholder="Search ...">
+                    <button type="submit" class="input-group-text bg-success text-light">
+                        <i class="fa fa-fw fa-search text-white"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+    <section class="bg-success py-5">
+        <div class="container">
+            <div class="row align-items-center py-5">
+                <div class="col-md-8 text-white">
+                    <h1>노트북 맞춤형 추천</h1>
+                    <p>
+                        자신에게 맞는 노트북을 추천해드립니다!
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <img src="" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Close Banner -->
+
+    <!-- Start 추천 -->
+    <section class="container py-5">
+        <form>
+        <div class="row text-center pt-3 pb-3">
+            <h1 class="h5">노트북의 성능이 중요합니다.</h1>
+        </div>
+        <div class="row g-0">
+            <div class="col-md-6">
+                <h1 class="h5" style="text-align: left">동의</h1>
+            </div>
+            <div class="col-md-6">
+                <h1 class="h5" style="text-align: right">비동의</h1>
+            </div>
+            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="btnradio1" id="btnradio1-1" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio1-1"></label>
+                    <input type="radio" class="btn-check" name="btnradio1" id="btnradio1-2" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio1-2"></label>
+                    <input type="radio" class="btn-check" name="btnradio1" id="btnradio1-3" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio1-3"></label>
+                    <input type="radio" class="btn-check" name="btnradio1" id="btnradio1-4" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio1-4"></label>
+                    <input type="radio" class="btn-check" name="btnradio1" id="btnradio1-5" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio1-5"></label>
+                    <input type="radio" class="btn-check" name="btnradio1" id="btnradio1-6" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio1-6"></label>
+            </div>
+        </div>
+        <div class="row text-center pt-3 pb-3">
+            <h1 class="h5"><br>노트북이 저렴한게 좋습니다.</h1>
+        </div>
+        <div class="row g-0">
+            <div class="col-md-6">
+                <h1 class="h5" style="text-align: left">동의</h1>
+            </div>
+            <div class="col-md-6">
+                <h1 class="h5" style="text-align: right">비동의</h1>
+            </div>
+            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="btnradio2" id="btnradio2-1" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio2-1"></label>
+                    <input type="radio" class="btn-check" name="btnradio2" id="btnradio2-2" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio2-2"></label>
+                    <input type="radio" class="btn-check" name="btnradio2" id="btnradio2-3" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio2-3"></label>
+                    <input type="radio" class="btn-check" name="btnradio2" id="btnradio2-4" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio2-4"></label>
+                    <input type="radio" class="btn-check" name="btnradio2" id="btnradio2-5" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio2-5"></label>
+                    <input type="radio" class="btn-check" name="btnradio2" id="btnradio2-6" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio2-6"></label>
+            </div>
+        </div>
+        <div class="row text-center pt-3 pb-3">
+            <h1 class="h5"><br>노트북이 가벼운게 좋습니다.</h1>
+        </div>
+        <div class="row g-0">
+            <div class="col-md-6">
+                <h1 class="h5" style="text-align: left">동의</h1>
+            </div>
+            <div class="col-md-6">
+                <h1 class="h5" style="text-align: right">비동의</h1>
+            </div>
+            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="btnradio3" id="btnradio3-1" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio3-1"></label>
+                    <input type="radio" class="btn-check" name="btnradio3" id="btnradio3-2" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio3-2"></label>
+                    <input type="radio" class="btn-check" name="btnradio3" id="btnradio3-3" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio3-3"></label>
+                    <input type="radio" class="btn-check" name="btnradio3" id="btnradio3-4" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio3-4"></label>
+                    <input type="radio" class="btn-check" name="btnradio3" id="btnradio3-5" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio3-5"></label>
+                    <input type="radio" class="btn-check" name="btnradio3" id="btnradio3-6" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio3-6"></label>
+            </div>
+        </div>
+        <div class="row text-center pt-3 pb-3">
+            <h1 class="h5"><br>노트북의 화면이 큰게 좋습니다.</h1>
+        </div>
+        <div class="row g-0">
+            <div class="col-md-6">
+                <h1 class="h5" style="text-align: left">동의</h1>
+            </div>
+            <div class="col-md-6">
+                <h1 class="h5" style="text-align: right">비동의</h1>
+            </div>
+            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="btnradio4" id="btnradio4-1" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio4-1"></label>
+                    <input type="radio" class="btn-check" name="btnradio4" id="btnradio4-2" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio4-2"></label>
+                    <input type="radio" class="btn-check" name="btnradio4" id="btnradio4-3" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio4-3"></label>
+                    <input type="radio" class="btn-check" name="btnradio4" id="btnradio4-4" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio4-4"></label>
+                    <input type="radio" class="btn-check" name="btnradio4" id="btnradio4-5" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio4-5"></label>
+                    <input type="radio" class="btn-check" name="btnradio4" id="btnradio4-6" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio4-6"></label>
+            </div>
+        </div>
+        <div class="row text-center pt-3 pb-3">
+            <h1 class="h5"><br>AS가 중요합니다.</h1>
+        </div>
+        <div class="row g-0">
+            <div class="col-md-6">
+                <h1 class="h5" style="text-align: left">동의</h1>
+            </div>
+            <div class="col-md-6">
+                <h1 class="h5" style="text-align: right">비동의</h1>
+            </div>
+            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="btnradio5" id="btnradio5-1" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio5-1"></label>
+                    <input type="radio" class="btn-check" name="btnradio5" id="btnradio5-2" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio5-2"></label>
+                    <input type="radio" class="btn-check" name="btnradio5" id="btnradio5-3" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio5-3"></label>
+                    <input type="radio" class="btn-check" name="btnradio5" id="btnradio5-4" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio5-4"></label>
+                    <input type="radio" class="btn-check" name="btnradio5" id="btnradio5-5" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio5-5"></label>
+                    <input type="radio" class="btn-check" name="btnradio5" id="btnradio5-6" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btnradio5-6"></label>
+            </div>
+        </div>
+        <br>
+        <div class="col-12 text-center">
+            <button class="btn btn-primary" type="submit">나에게 맞는 노트북은?</button>
+        </div>
+        </form>
+    </section>
+    <!-- end 추천-->
+{% endblock %}
