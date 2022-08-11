@@ -5,7 +5,7 @@ app_name = 'main'
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('note_book_service/recommend.html/', views.cmd, name='recommend'),
+    path('recommend/', views.cmd, name='recommend'),
     path('note_book_service/community.html/', views.comm, name='community'),
     path('expolre/<prod_id>/', views.expolre, name='prod_info'),
     # path('coding/', views),
