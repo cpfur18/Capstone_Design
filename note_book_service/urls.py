@@ -6,7 +6,8 @@ app_name = 'main'
 urlpatterns = [
     path('', views.index, name='index'),
     path('recommend/', views.cmd, name='recommend'),
-    path('note_book_service/community.html/', views.comm, name='community'),
+    path('community/', views.comm, name='community'),
+    path('postinfo/', views.pstif, name='postinfo'),
     path('expolre/<prod_id>/', views.expolre, name='prod_info'),
     # path('coding/', views),
     # path('video_edit/', views),

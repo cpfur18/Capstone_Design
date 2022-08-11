@@ -71,7 +71,7 @@
                         <!-- 댓글 등록 : 로그인 시에만 등록 가능-->
                         {% if user.is_authenticated %}
                         <div class="text-success d-flex row pr-0">
-                            <div class="media col-lg-1 col-md-2 d-none d-md-block text-center"><img src="./test img/user.png" class="img-circle" alt="..."></div>
+                            <div class="media col-lg-1 col-md-2 d-none d-md-block text-center"><img src="{% static 'test img/user.png' %}" class="img-circle" alt="..."></div>
                             <form class="col-lg-11 col-md-10 comment pr-0 mr-0" method="post" role="form">
                                     <div class="px-0 form-row d-flex">
                                         <div class="col-9 col-lg-10">
@@ -106,6 +106,7 @@
                                 </div>
                             </li>
                         </ul>
+                        {% endif %}
                         <!-- End 댓글 리스트 -->
                     </div>
                 </div>

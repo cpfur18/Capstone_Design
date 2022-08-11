@@ -41,3 +41,10 @@ def comm(request):
     commu = {'best_community' : best_community,
             'best_community_list' : best_community_list,}
     return render(request, 'note_book_service/community.html', commu)
+
+def pstif(request):
+    best_pstif = 1
+    best_pstif_list = 2
+    pstt = {'best_pstif' : best_pstif,
+            'best_pstif_list' : best_pstif_list,}
+    return render(request, 'note_book_service/postinfo.html', pstt)
