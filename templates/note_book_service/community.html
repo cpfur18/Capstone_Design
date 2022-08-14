@@ -1,33 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
-    <!--배너-->
-    <div class="bg-success py-5">
-        <div class="container">
-            <div class="row align-items-center py-5">
-                <div class="col-md-4 text-white">
-                    <h1 class="h1 text-center">커뮤니티</h1>
-                </div>
-                <div class="col-md-8">
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--End 배너-->
-    <div class="container py-3">
-        <!-- 커뮤니티 메뉴1 : 화면 크기가 작아지면 활성화-->
-        <div class="list-group text-center d-block d-md-none list-group-horizontal">
-            <a href="#" class="list-group-item list-group-item-action">리뷰 게시판</a>
-            <a href="#" class="list-group-item list-group-item-action">질문 게시판</a>
-            <a href="#" class="list-group-item list-group-item-action">자주 묻는 질문</a>
-            <a href="#" class="list-group-item list-group-item-action">자유 게시판</a>
-        </div>
-        <!-- End 메뉴1-->
-        <div class="row my-3">
-            <div class="col-md-3 d-none d-md-block"></div>
-            <div class="col-md-7 col-9">
-                리뷰 게시판
-            </div>
+{% include 'comm_UI1.html' %}
             <!-- 로그인 시에만 글쓰기 버튼 활성화 -->
             <div class="d-flex justify-content-end col-md-2 col-3 ">
                 {% if user.is_authenticated %}
@@ -37,16 +11,7 @@
 
         </div>
         <div class="row">
-            <!-- 커뮤니티 메뉴2 : 화면 크기가 커지면 활성화-->
-            <div class="col-md-3">
-                <div class="list-group text-center d-none d-md-block">
-                    <a href="#" class="list-group-item list-group-item-action">리뷰 게시판</a>
-                    <a href="#" class="list-group-item list-group-item-action">질문 게시판</a>
-                    <a href="#" class="list-group-item list-group-item-action">자주 묻는 질문</a>
-                    <a href="#" class="list-group-item list-group-item-action">자유 게시판</a>
-                </div>
-            </div>
-            <!-- End 메뉴2-->
+            {% include 'comm_UI2.html' %}
             <!-- 글 목록 : 한 페이지에 글이 10개 정도 보이면 좋을듯-->
             <div class="col-md-9">
                 <table class="table table-hover">

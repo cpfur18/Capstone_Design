@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+{% include 'comm_UI1.html' %}
+    <!-- 글 쓰기 -->
+            <div class="d-flex justify-content-end col-md-2 col-3 ">
+                <button type="button" class="btn btn-success px-3" href="#">글 목록</button>
+            </div>
+        </div>
+        <div class="row">
+        {% include 'comm_UI2.html' %}
+
+            <!-- 웹 에디터.-->
+            <div class="col-md-9 mb-3">
+                <form method="post">
+                    {% csrf_token %}
+                    <table>
+                        {{ form.as_table }}
+                    </table>
+                <input type="submit" value="등록" class="form-control">
+                </form>
+            </div>
+            <!-- End 웹 에디터 -->
+        </div>
+
+    </div>
+{% endblock %}
