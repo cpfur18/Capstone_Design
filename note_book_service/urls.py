@@ -8,7 +8,9 @@ urlpatterns = [
     path('recommend/', views.cmd, name='recommend'),
     path('community/', views.comm, name='community'),
     path('postinfo/', views.pstif, name='postinfo'),
+    path('write/', views.wrt, name='write'),
     path('expolre/<prod_id>/', views.expolre, name='prod_info'),
+    
     # path('coding/', views),
     # path('video_edit/', views),
     # path('office/', views),

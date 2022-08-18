@@ -48,3 +48,10 @@ def pstif(request):
     pstt = {'best_pstif' : best_pstif,
             'best_pstif_list' : best_pstif_list,}
     return render(request, 'note_book_service/postinfo.html', pstt)
+
+def wrt(request):
+    best_wrt = 1
+    best_wrt_list = 2
+    wrtt = {'best_wrt' : best_wrt,
+            'best_wrt_list' : best_wrt_list,}
+    return render(request, 'note_book_service/write.html', wrtt)
