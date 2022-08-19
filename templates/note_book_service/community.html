@@ -5,7 +5,7 @@
             <!-- 로그인 시에만 글쓰기 버튼 활성화 -->
             <div class="d-flex justify-content-end col-md-2 col-3 ">
                 {% if user.is_authenticated %}
-                <a class type="button" class="btn btn-success px-3" href="{% url 'main:write' %}">글쓰기</button>
+                <a class="btn btn-success px-3" href="{% url 'main:write' %}">글쓰기</a>
                 {% endif %}
             </div>
 
