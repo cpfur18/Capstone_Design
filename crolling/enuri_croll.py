@@ -70,29 +70,45 @@ class enuri:
             # 상품 리스트에 저장
             notebook_list = soup.select('li.prodItem')
             time.sleep(1)
+
             for item_list in notebook_list:
                 # 상품명, 제조사 가격, 상품 등록일 저장
                 model_id = item_list.attrs["data-model-origin"]
-                company = item_list.select_one('li.item__etc--brand > a').text.strip()
-                name = item_list.select_one('div.item__model > a').text.strip()
-                price = item_list.select_one('div.opt--price > span').text.strip()
-                reg_date = item_list.select_one('li.item__etc--date').text.strip()
-                # 리뷰 평점 및 개수 인덱싱 후 저장
-                review_count = item_list.select_one('li.item__etc--score').text.split()
-                count += 1
 
-                if not review_count:
-                    print(model_id, company, name, price, reg_date)
-                else:
-                    print(model_id, company, name, price, reg_date, review_count[0], review_count[1])
+                try:
+                    Prod.objects.get(prod_id=model_id)
+                    print("PASS")
+                    break
+                except:
+                    company = item_list.select_one('li.item__etc--brand > a').text.strip()
+                    name = item_list.select_one('div.item__model > a').text.strip()
+                    price = item_list.select_one('div.opt--price > span').text.strip()
+                    reg_date = item_list.select_one('li.item__etc--date').text.strip()
+                    # 리뷰 평점 및 개수 인덱싱 후 저장
+                    review_count = item_list.select_one('li.item__etc--score').text.split()
+                    count += 1
 
-                #============================ 기본 정보 DB저장=============================================
-                if not review_count:
-                    Prod(prod_id=model_id, prod_company=company, prod_name=name, prod_price=price, prod_reg_date=reg_date).save()
-                else:
-                    Prod(prod_id=model_id, prod_company=company, prod_name=name, prod_price=price, prod_reg_date=reg_date, prod_review_grade=review_count[0], prod_review_count=review_count[1].strip('('')')).save()
+                    if not review_count:
+                        print(model_id, company, name, price, reg_date)
+                    else:
+                        print(model_id, company, name, price, reg_date, review_count[0], review_count[1])
+
+                    #============================ 기본 정보 DB저장=============================================
+                    if not review_count:
+                        Prod(prod_id=model_id, prod_company=company, prod_name=name, prod_price=price,
+                             prod_reg_date=reg_date).save()
+                    else:
+                        try:
+                            Prod(prod_id=model_id, prod_company=company, prod_name=name, prod_price=price,
+                                 prod_reg_date=reg_date, prod_review_grade=review_count[0],
+                                 prod_review_count=review_count[1].strip('('')').replace(',', '')).save()
+                        except:
+                            Prod(prod_id=model_id, prod_company=company, prod_name=name, prod_price=price,
+                                 prod_reg_date=reg_date, prod_review_grade=review_count[0],
+                                 prod_review_count=review_count[1].strip('('')')).save()
             print('===============================================')
-            print('반복횟수 : ', count)
+            print('크롤링 횟수 : ', count, "회")
+            print('===============================================')
             # 페이지 변수 증가
             spage += 1
 
@@ -119,8 +135,8 @@ class enuri:
         self.button_click(driver)
         time.sleep(4)
 
-        self.enuri_crolling(driver, 1, 30)
-        self.prodDesc(driver)
+        # 크롤링 Start(드라이버, 초기페이지, 마지막 페이지)
+        self.enuri_crolling(driver, 1, 130)
 
         # 브라우저 종료
         print("크롤링이 끝났습니다.")
