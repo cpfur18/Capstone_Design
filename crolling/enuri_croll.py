@@ -85,15 +85,23 @@ class enuri:
                     price = item_list.select_one('div.opt--price > span').text.strip()
                     reg_date = item_list.select_one('li.item__etc--date').text.strip()
                     # 리뷰 평점 및 개수 인덱싱 후 저장
-                    review_count = item_list.select_one('li.item__etc--score').text.split()
+                    # review_count = item_list.select_one('li.item__etc--score').text.split()
+
+                    # 페이지 카운트 추가
                     count += 1
 
-                    if not review_count:
-                        print(model_id, company, name, price, reg_date)
-                    else:
-                        print(model_id, company, name, price, reg_date, review_count[0], review_count[1])
+                    print(model_id, company, name, price, reg_date)
+
+                    # 리뷰 카운트
+                    # if not review_count:
+                    #     print(model_id, company, name, price, reg_date)
+                    # else:
+                    #     print(model_id, company, name, price, reg_date, review_count[0], review_count[1])
 
                     #============================ 기본 정보 DB저장=============================================
+                    Prod(prod_id=model_id, prod_company=company, prod_name=name, prod_price=price,
+                         prod_reg_date=reg_date[-7:]).save()
+                    '''
                     if not review_count:
                         Prod(prod_id=model_id, prod_company=company, prod_name=name, prod_price=price,
                              prod_reg_date=reg_date).save()
@@ -101,11 +109,13 @@ class enuri:
                         try:
                             Prod(prod_id=model_id, prod_company=company, prod_name=name, prod_price=price,
                                  prod_reg_date=reg_date, prod_review_grade=review_count[0],
-                                 prod_review_count=review_count[1].strip('('')').replace(',', '')).save()
+                                 # prod_review_count=review_count[1].strip('('')').replace(',', '')).save()
                         except:
                             Prod(prod_id=model_id, prod_company=company, prod_name=name, prod_price=price,
                                  prod_reg_date=reg_date, prod_review_grade=review_count[0],
-                                 prod_review_count=review_count[1].strip('('')')).save()
+                                 # prod_review_count=review_count[1].strip('('')')).save()
+                    '''
+
             print('===============================================')
             print('크롤링 횟수 : ', count, "회")
             print('===============================================')

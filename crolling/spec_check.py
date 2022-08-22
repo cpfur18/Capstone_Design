@@ -22,19 +22,22 @@ import urllib.request as req
 
 os_option = [130659]
 display_option = [130702, 219017, 130703, 210408, 130705, 130704, 130709, 130701, 130699, 130696, 215469,
-                  212910, 216363, 217080, 217079, 217078]
+                  212910, 216363]
+Color_display_option = [217080, 217079, 217078]
 # DCI-P3 217081 specTitle로 찾아야함
 apple_cpu_option = [217166, 211238]
-intel_cpu_option = [130715, 214886, 130713, 130726, 211238, 211239, 130733, 130727, 130717, 130729]
-amd_cpu_option = [130715, 130713, 212862, 211238, 211239, 130733]
+intel_cpu_option = [130715, 214886, 130713, 130726, 211238, 211239, 130733, 130727, 130717, 130729, 130725, 213419,
+                    201885]
+amd_cpu_option = [130715, 130713, 212862, 211238, 211239, 130733, 130730]
 gpu_option = [130614, 214673]
 ext_gpu_option = ["그래픽(NVIDIA)", "그래픽(AMD)", 218699, 130628, 130626]
 ram_option = [130643, 210963]
 stge_option = [130680, 210951]
 battery_option = [213912, 130647]
 weight_option = [130641, 130644]
-add_option = [192356, 130633, 130683, 130687, 130658, 130640, 217044, 130651, 130663, 217083, 213912, 130647,
+add_option = [192356, 130633, 130683, 130658, 130640, 217044, 130651, 130663, 217083, 213912, 130647,
               217085,130635, 130674, 130645]
+# 웹캠 전면 specTitle + specContent 130687
 class enuri:
     # DB 저장 함수
     def save_desc(self, fk_prod, option_code, specContent):
@@ -52,6 +55,9 @@ class enuri:
         elif id_dict in display_option:
             # print("Display : " + specContent_dict)
             self.save_desc(fk_prod, 2, specContent_dict)
+        elif id_dict in Color_display_option:
+            # print("Display : " + specTitle_dict + " " + specContent_dict)
+            self.save_desc(fk_prod, 2, specTitle_dict + " " + specContent_dict)
         elif id_dict == 217081:
             # print("Display : " + "DCI-P3")
             self.save_desc(fk_prod, 2, specTitle_dict)
@@ -85,6 +91,9 @@ class enuri:
         elif id_dict in weight_option:
             # print("Weight : " + specContent_dict)
             self.save_desc(fk_prod, 9, specContent_dict)
+        elif id_dict == 130687:
+            # print("ADD : " + specTitle_dict + specContent_dict)
+            self.save_desc(fk_prod, 10, "웹캠 전면")
         elif id_dict in add_option:
             # print("ADD : " + specContent_dict)
             self.save_desc(fk_prod, 10, specContent_dict)
