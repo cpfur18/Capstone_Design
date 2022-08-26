@@ -14,8 +14,9 @@
             <div class="col-md-9 mb-3">
                 <form method="post">
                     {% csrf_token %}
-                    <div id="summernote"></div>
-                <input type="submit" value="등록" class="form-control">
+                    <input type="text" class="form-control mb-1" placeholder="제목">
+                    <textarea id="summernote"></textarea>
+                    <input type="submit" value="등록" class="form-control mt-1">
                 </form>
             </div>
             <!-- End 웹 에디터 -->
