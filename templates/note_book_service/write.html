@@ -12,10 +12,10 @@
 
             <!-- 웹 에디터.-->
             <div class="col-md-9 mb-3">
-                <form method="post">
+                <form action="/getpost/write"method="post">
                     {% csrf_token %}
-                    <input type="text" class="form-control mb-1" placeholder="제목">
-                    <textarea id="summernote"></textarea>
+                    <input name="title" type="text" class="form-control mb-1" placeholder="제목">
+                    <textarea name="content" id="summernote"></textarea>
                     <input type="submit" value="등록" class="form-control mt-1">
                 </form>
             </div>
