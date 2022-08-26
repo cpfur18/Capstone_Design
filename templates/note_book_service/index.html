@@ -264,37 +264,48 @@
             <div class="col-xs">
                 <div class="card mb-3">
                     <div class="row g-1">
-                        {% if best_Prod_list %}
-                            {% for best_Prod in best_Prod_list %}
+                        {% if Prod_list %}
+                            {% for Prod in Prod_list %}
                                 <div class="row">
                                     <div class="col-md-4">
                                         <a href="">
-                                            <img src="{% get_static_prefix %}assets/img/{{ best_Prod.prod_id }}.jpg" alt={{ best_Prod.prod_id }}, class="card-img-top">
+                                            <img src="{% get_static_prefix %}assets/img/{{ Prod.prod_id }}.jpg" alt={{ Prod.prod_id }}, class="card-img-top">
                                         </a>
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">
                                             <a href="" class="h2 text-decoration-none text-dark">
-                                                {{ best_Prod.prod_name }} </a>
+                                                {{ Prod.prod_name }} </a>
                                             <p class="card-text">
                                                 <br>
-                                                {% for spec in best_Prod_list_spec %}
-                                                    {% if spec.prod_id_id == best_Prod.prod_id %}
-                                                        {{ spec.prod_property }} |
+                                                {% for spec in Prod_list_spec %}
+                                                    {% if spec.prod_id_id == Prod.prod_id %}
+                                                        {% if spec.option_id == 1 %}
+                                                            <div>
+                                                            <p>운영체제 : {{ spec.option_title }}</p>
+                                                            </div>
+                                                        {% elif spec.option_id == 2 and "인치" in spec.option_title %}
+                                                            <div>
+                                                            <p>화면 크기 : {{ spec.option_title }}</p>
+                                                            <p> </p>
+                                                            </div>
+                                                        {% elif spec.option_id == 3 and "AMD" in spec.option_title %}
+                                                            <p>CPU : AMD</p>
+                                                        {% elif spec.option_id == 3 and "인텔" in spec.option_title %}
+                                                            <p>CPU : 인텔</p>
+                                                        {% elif spec.option_id == 4 and "인치" in spec.option_title %}
+                                                            <p>GPU : {{ spec.option_title }}</p>
+                                                        {% elif spec.option_id == 2 and "인치" in spec.option_title %}
+                                                            <p>무게 : {{ spec.option_title }}</p>
+                                                        <hr>
+                                                        {% endif %}
                                                     {% endif %}
-
                                                 {% endfor %}
-                                                {% if best_Prod.prod_review_count >= 1 %}
-                                                    <br><br>
-                                                    평점 : {{ best_Prod.prod_review_grade }}
-                                                    &nbsp&nbsp&nbsp
-                                                    리뷰 수 : {{ best_Prod.prod_review_count }}
-                                                {% endif %}
                                                 <br><br>
-                                                {{ best_Prod.prod_reg_date }}
+                                                {{ Prod.prod_reg_date }}
                                             </p>
                                             <br><br><br>
-                                            <p class="text-muted"> {{ best_Prod.prod_price }}</p>
+                                            <p class="text-muted"> {{ Prod.prod_price }}</p>
                                         </div>
                                     </div>
                                     <div></div>

@@ -2,20 +2,28 @@ from django.shortcuts import render
 from datetime import datetime
 from django.utils import timezone
 from django.http import HttpResponse
+from django.core import serializers
 from .models import Prod, Prod_property
+
+def getApi(request):
+    property = Prod_property.objects.filter(prod_id__exact=97149727).order_by('option_id')
+    property_list = serializers.serialize('json', property)
+    return HttpResponse(property_list, content_type="text/json-comment-filtered; charset=utf-8")
+
+def apiTest(request):
+    return render(request, 'apiTest.html')
 
 def index(request):
     # 현 시각 Year, month
-    now = timezone.now()
-    kst = now.strftime('%y.%m')
+    # now = timezone.now()
+    # kst = now.strftime('%y.%m')
 
-    # best_Prod_list = Prod.objects.filter(prod_reg_date__contains=kst).order_by('-prod_id')[:5]
-    # best_Prod_list_spec = Prod_property.objects.filter(prod_id__in=best_Prod_list.values('prod_id'))
-    best_Prod_list = Prod.objects.order_by('-prod_review_count')[:5]
-    best_Prod_list_spec = Prod_property.objects.filter(prod_id__in=best_Prod_list.values('prod_id'))
+    new_Prod_list = Prod.objects.order_by('-prod_id')[0:5]
+    new_Prod_list_spec = Prod_property.objects.filter(prod_id__in=new_Prod_list).order_by('option_id')
+    print(len(new_Prod_list_spec.values('prod_id')))
 
-    context = {'best_Prod_list' : best_Prod_list,
-               'best_Prod_list_spec' : best_Prod_list_spec,
+    context = {'Prod_list': new_Prod_list,
+               'Prod_list_spec': new_Prod_list_spec,
                }
     return render(request, 'note_book_service/index.html', context)
 

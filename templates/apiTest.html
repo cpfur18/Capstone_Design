@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>apiTest</title>
+</head>
+<body>
+    <table class="table">
+        <tbody id="apiTest">
+        </tbody>
+    </table>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+    $.ajax({
+        url: "http://127.0.0.1:8000/getApi",
+        dataType: "json",
+        success: function (data) {
+            var apiTest = "";
+            console.log('실패');
+            for (var i = 0; i < data.length; i++) {
+                apiTest += "<tr>"
+                apiTest += "<td>" + data[i].fields.prod_id + "</td>"
+                apiTest += "<td>" + data[i].fields.option_id + "</td>"
+                apiTest += "<td>" + data[i].fields.option_title + "</td>"
+                apiTest += "</tr>"
+            }
+            $('[id="apiTest"]').html(apiTest);
+        },
+        error: function (request, status, error) {
+            console.log('실패');
+        }
+    });
+</script>
+</html>

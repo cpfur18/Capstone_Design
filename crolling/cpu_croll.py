@@ -20,7 +20,7 @@ from note_book_service.models import Passmark_cpu_info
 
 # 셀레니움 import
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+import chromedriver_autoinstaller
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -32,17 +32,11 @@ import time
 class cpu_mark:
     # 크롬 드라이버 초기화
     def init_driver(self):
-        options = Options()
-        driver = webdriver.Chrome(options=options)
+        chromedriver_autoinstaller.install()
+        driver = webdriver.Chrome()
 
         # 브라우저 내부 대기
         driver.implicitly_wait(5)
-
-        # chrom headless 모드 동작
-        options = webdriver.ChromeOptions()
-        options.add_argument('headless')
-        options.add_argument('window-size=1920x1080')
-        options.add_argument("disable-gpu")
 
         # url 접근
         driver.get('https://www.cpubenchmark.net/CPU_mega_page.html')
@@ -79,8 +73,10 @@ class cpu_mark:
                 name = cputable.select_one('td > a').text
                 mark = cputable.select_one('td.sorting_1').text
                 # 숫자 단위 콤마 제거
+
                 mark = int(mark.replace(",", ""))
                 print(name, mark)
+
 
                 # DB 저장
                 Passmark_cpu_info(cpu_name=name, cpu_mark=mark).save()

@@ -5,7 +5,7 @@ class Prod(models.Model):
     prod_id = models.IntegerField(primary_key=True)
     prod_company = models.CharField(max_length=30)
     prod_name = models.CharField(max_length=100)
-    prod_price = models.CharField(max_length=100)
+    prod_price = models.IntegerField()
     prod_reg_date = models.CharField(max_length=100)
     # prod_review_grade = models.CharField(max_length=30, null=True)
     # prod_review_count = models.IntegerField(null=True)
@@ -17,7 +17,8 @@ class Prod(models.Model):
 class Prod_property(models.Model):
     prod_id = models.ForeignKey(Prod, db_column="prod_id", on_delete=models.CASCADE)
     option_id = models.IntegerField()
-    option_title = models.CharField(max_length=30)
+    option_title = models.CharField(max_length=10, null=True)
+    option_Content = models.CharField(max_length=15)
 
     def __str__(self):
         return self.prod_id
@@ -25,18 +26,17 @@ class Prod_property(models.Model):
 # 노트북 이미지
 class Prod_img(models.Model):
     prod_id = models.ForeignKey(Prod, db_column="prod_id", on_delete=models.CASCADE)
-    prod_img_src = models.CharField(max_length=1000)
+    prod_img_src = models.CharField(max_length=1000, null=True)
 
 # 노트북 평가 수치
-# class Prod_ratings(models.Model):
-#     prod_id = models.ForeignKey(Prod, primary_key=True, db_column="prod_id", on_delete=models.CASCADE)
-#     cpu = models.IntegerField()
-#     gpu = models.IntegerField()
-#     ram = models.IntegerField()
-#     Storage = models.IntegerField()
-#     gpu = models.IntegerField()
-#     price = models.IntegerField()
-#     screen = models.IntegerField()
+class Prod_ratings(models.Model):
+    prod_id = models.ForeignKey(Prod, primary_key=True, db_column="prod_id", on_delete=models.CASCADE)
+    cpu = models.IntegerField()
+    gpu = models.IntegerField()
+    ram = models.IntegerField()
+    Storage = models.IntegerField()
+    price = models.IntegerField()
+    display = models.IntegerField()
 
     def __str__(self):
         return self.prod_id

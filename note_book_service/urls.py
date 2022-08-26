@@ -10,6 +10,8 @@ urlpatterns = [
     path('postinfo/', views.pstif, name='postinfo'),
     path('write/', views.wrt, name='write'),
     path('expolre/<prod_id>/', views.expolre, name='prod_info'),
+    path('getApi', views.getApi, name='getapi'),
+    path('apiTest', views.apiTest, name='apiTest'),
     
     # path('coding/', views),
     # path('video_edit/', views),

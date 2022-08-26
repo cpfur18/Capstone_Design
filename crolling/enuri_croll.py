@@ -57,6 +57,8 @@ class enuri:
         WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.CSS_SELECTOR, new_prod))).click()
         time.sleep(1)
 
+
+
     # 크롤링 함수
     def enuri_crolling(self, driver, spage, lpage):
 
@@ -82,7 +84,7 @@ class enuri:
                 except:
                     company = item_list.select_one('li.item__etc--brand > a').text.strip()
                     name = item_list.select_one('div.item__model > a').text.strip()
-                    price = item_list.select_one('div.opt--price > span').text.strip()
+                    price = item_list.select_one('div.opt--price > span').text.strip().replace(",", "")
                     reg_date = item_list.select_one('li.item__etc--date').text.strip()
                     # 리뷰 평점 및 개수 인덱싱 후 저장
                     # review_count = item_list.select_one('li.item__etc--score').text.split()
@@ -146,7 +148,7 @@ class enuri:
         time.sleep(4)
 
         # 크롤링 Start(드라이버, 초기페이지, 마지막 페이지)
-        self.enuri_crolling(driver, 1, 130)
+        self.enuri_crolling(driver, 1, 190)
 
         # 브라우저 종료
         print("크롤링이 끝났습니다.")
