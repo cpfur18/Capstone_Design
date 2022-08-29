@@ -3,7 +3,8 @@
 {% load static %}
 {% include 'comm_UI1.html' %}
     <!-- 게시글 뷰어 -->
-            <div class="d-flex justify-content-end col-md-2 col-3 ">
+                <button type="button" class="btn btn-warning px-3">수정</button>
+                <button type="button" class="btn btn-danger px-3 mx-1">삭제</button>
                 <a class="btn btn-success px-3" href="{% url 'main:community' %}">글 목록</a>
             </div>
         </div>
@@ -59,8 +60,8 @@
                                         <img src="{% static 'test img/user.png' %}" class="img-circle" alt="...">
                                         <h6 class="h6 mt-2">닉네임</h6>
                                     </div>
-                                    <div class="col-3 col-lg-2 d-flex flex-row align-items-end px-0">
-                                        <button type="button" class="btn btn-success ml-0 p-2">수정</button>
+                                    <div class="col-3 col-lg-2 d-flex justify-content-end px-0">
+                                        <button type="button" class="btn btn-warning ml-0 p-2 mx-1">수정</button>
                                         <button type="button" class="btn btn-danger mr-0 p-2">삭제</button>
                                     </div>
                                 </div>
