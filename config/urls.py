@@ -9,7 +9,7 @@ urlpatterns = [
     #path('abc/', board.views.abc),
     #path('getpost/write', board.views.getpostwrite),
     path('board/create', board.views.create),
-    path('board/list', board.views.list),
+    #path('board/list', board.views.list),
     #path('board/read/<int:bid>', board.views.read),
     #path('board/delete/<int:bid>', board.views.delete),
     #path('board/update/<int:bid>', board.views.update),
