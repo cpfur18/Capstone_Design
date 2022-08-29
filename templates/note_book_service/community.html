@@ -13,16 +13,27 @@
             <!-- 글 목록 : 한 페이지에 글이 10개 정도 보이면 좋을듯-->
             <div class="col-md-9">
                 <table class="table table-hover">
-                    <tr class="row">
-                        <td class="col-6"><a href="{% url 'main:postinfo' %}"><h6 class="h6 small">게시글 예시</h6></a></td>
+                    <!--<tr class="row">
+                    #    <td class="col-6"><a href="{% url 'main:postinfo' %}"><h6 class="h6 small">게시글 예시</h6></a></td>
                         <td class="col-3 align-right"><a href="#"><h6 class="h6 small">닉네임</h6></a></td>
                         <td class="col-3 align-center"><a href="#"><h6 class="h6 small">작성일시</h6></a></td>
-                    </tr>
+                    </tr>-->
                     <tr class="row">
-                        <td class="col-6"><a href="{% url 'main:postinfo' %}"><h6 class="h6 small">{{ posttitle }}</h6></a></td>
-                        <td class="col-3 align-right"><a href="#"><h6 class="h6 small">닉네임</h6></a></td>
+                        <td class="col-1 align-right"><a href="#"><h6 class="h6 small"> No.</h6></a></td>
+                        <td class="col-3"><a href="{% url 'main:postinfo' %}"><h6 class="h6 small"> 제목</h6></a></td>
+                        <td class="col-3 align-right"><a href="#"><h6 class="h6 small">작성자</h6></a></td>
                         <td class="col-3 align-center"><a href="#"><h6 class="h6 small">작성일시</h6></a></td>
                     </tr>
+                    {% if posts %}
+                        {% for post in posts %}
+                            <tr class="row">
+                                <td class="col-1 align-right"><a href="#"><h6 class="h6 small">{{ post.id }}</h6></a></td>
+                                <td class="col-3"><a href="{% url 'main:postinfo' %}"><h6 class="h6 small">{{ post.title }}</h6></a></td>
+                                <td class="col-3 align-right"><a href="#"><h6 class="h6 small">{{ post.writer }}</h6></a></td>
+                                <td class="col-3 align-center"><a href="#"><h6 class="h6 small">{{ post.create_date }}</h6></a></td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
                 </table>
                 <div class="row d-flex">
                     <ul class="pagination justify-content-center">

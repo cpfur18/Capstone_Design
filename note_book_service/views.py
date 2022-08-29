@@ -3,6 +3,8 @@ from datetime import datetime
 from django.utils import timezone
 from django.http import HttpResponse
 from django.core import serializers
+
+from board.models import Post
 from .models import Prod, Prod_property
 
 def getApi(request):
@@ -44,11 +46,10 @@ def cmd(request):
     return render(request, 'note_book_service/recommend.html', comd)
 
 def comm(request):
-    best_community = 1
-    best_community_list = 2
-    commu = {'best_community' : best_community,
-            'best_community_list' : best_community_list,}
-    return render(request, 'note_book_service/community.html', commu)
+    posts = Post.objects.all().order_by('-id') #object : ORM에서 사용되는 manage 객체 => all은 모두 가져오는 것. get은 하나.
+    context = {'posts':posts}
+    return render(request, "note_book_service/community.html", context)
+    #return render(request, 'note_book_service/community.html', commu)
 
 def pstif(request):
     best_pstif = 1

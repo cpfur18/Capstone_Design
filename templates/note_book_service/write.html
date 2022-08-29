@@ -12,10 +12,11 @@
 
             <!-- 웹 에디터.-->
             <div class="col-md-9 mb-3">
-                <form action="/getpost/write"method="post">
+                <form action="/board/create"method="post">
                     {% csrf_token %}
+                    {{ PostForm }}
                     <input name="title" type="text" class="form-control mb-1" placeholder="제목">
-                    <textarea name="content" id="summernote"></textarea>
+                    <textarea name="contents" id="summernote"></textarea>
                     <input type="submit" value="등록" class="form-control mt-1">
                 </form>
             </div>
