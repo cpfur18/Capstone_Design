@@ -1,6 +1,7 @@
 {% load static %}
 <!--네비게이션 바-->
-    <nav class="navbar navbar-expand-lg navbar-light shadow">
+    <nav class="navbar navbar-expand-lg navbar-light shadow" id="main_nav">
+        <div id="media-992"></div>
         <div class="container d-flex justify-content-between align-items-center">
 
             <a class="navbar-brand text-success logo h1 align-self-center" href="http://127.0.0.1:8000/">
@@ -11,23 +12,23 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
-                <div class="flex-fill">
-                    <ul class="nav navbar-nav d-flex justify-content-around mx-lg-auto">
+            <div class="collapse navbar-collapse d-lg-flex justify-content-center" id="templatemo_main_nav">
+                <div class="flex-fill d-flex justify-content-around" id="nv">
+                    <ul class="nav navbar-nav d-flex justify-content-center justify-content-lg-around flex-fill">
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'main:recommend' %}">맞춤추천</a>
+                            <a class="nav-link text-center" href="{% url 'main:recommend' %}">맞춤추천</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="">직접탐색</a>
+                            <a class="nav-link text-center" href="">직접탐색</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'main:community' %}">커뮤니티</a>
+                            <a class="nav-link text-center" href="{% url 'main:community' %}">커뮤니티</a>
                         </li>
                     </ul>
                 </div>
 
-                <div class="navbar align-self-center d-flex">
-                    <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
+                <div class="navbar d-flex justify-content-evenly">
+                    <div class="d-lg-none flex-sm-fill mt-3 mb-4 pr-3 mx-3">
                         <div class="input-group">
                             <!--검색어 입력창-->
                             <input type="text" class="form-control" id="inputMobileSearch" placeholder="검색어를 입력하세요.">
@@ -36,7 +37,7 @@
                             </div>
                         </div>
                     </div>
-                    <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
+                    <a class="nav-icon d-none d-lg-inline mx-3" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
                         <i class="fa fa-fw fa-search text-dark mr-2"></i>
                     </a>
 

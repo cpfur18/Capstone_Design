@@ -1,7 +1,3 @@
-function productListChange(id){
-    var title = document.getElementById(id).innerText
-    document.getElementById("productListTitle").innerText = title+" TOP 5"
-}
 function reviewTextEdit(riviewClass){
     const mainpageReview = document.getElementsByClassName(riviewClass)
     const textlength = 40
@@ -42,5 +38,20 @@ document.addEventListener("DOMContentLoaded", function(){
     $('.note-resizebar').css('display','none');
     $('.dropdown-toggle').dropdown()
 
+    /* 무한스크롤
+    var infinite = new Waypoint.Infinite({
+        element: $('.infinite-container')[0],
+        offset: 'bottom-in-view',
+        onBeforePageLoad: function (){
+            $('.spinner-border').show();
+        },
+        onAfterPageLoad: function (){
+            $('.spinner-border').hide();
+        }
+    })
+    */
+    //navbar를
+    $(".sticky-top").css(
+        "background", "white"
+    )
 });
-//2번째 슬라이드부터 적용이 제대로 되지 않으므로 임시로 첫번째 슬라이드만 적용
