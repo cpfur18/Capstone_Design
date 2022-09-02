@@ -1,1 +1,6 @@
-# Capstone_Design
+### Django, PostgreSQL, Bootstrap 5로 만든 노트북 추천 웹서비스 입니다.
+## 큐레이션, 커뮤니티, 직접탐색 기능 구현 중 입니다.
+
+내부 서버 URL은 http://127.0.0.1:8000/ 입니다.
+
+Python으로 에누리(종합쇼핑몰) 크롤링
