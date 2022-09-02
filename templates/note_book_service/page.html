@@ -1,0 +1,27 @@
+{% for Prod in Prod_list %}
+    <div class="row infinite-item">
+        <div class="col-md-4">
+            <a href="">
+                <img src="{% get_static_prefix %}assets/img/{{ Prod.prod_id }}.jpg" alt={{ Prod.prod_id }}, class="card-img-top">
+            </a>
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <a href="product/{{ Prod.prod_id }}" class="h2 text-decoration-none text-dark">
+                    {{ Prod.prod_name }} </a>
+                <p class="card-text">
+                    <br>
+                    {% for spec in Prod_list_spec %}
+                        {{ spec.name }}
+                    {% endfor %}
+                    <br><br>
+                    {{ Prod.prod_reg_date }}
+                </p>
+                <br><br><br>
+                <p class="text-muted"> {{ Prod.prod_price }}원</p>
+            </div>
+        </div>
+        <div></div>
+    </div>
+    <div class="border-top my-3"></div>
+{% endfor %}

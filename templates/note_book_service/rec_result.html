@@ -31,7 +31,6 @@
             <div class="row">
                     <div class="card mb-3">
                         <div class="row g-1 infinite-container">
-
                             {% if Prod_list %}
                                 {% for Prod in Prod_list %}
                                     <div class="row infinite-item">
@@ -42,31 +41,40 @@
                                         </div>
                                         <div class="col-md-8">
                                             <div class="card-body">
+                                                <!-- 노트북 이름 출력 -->
                                                 <a href="{{ Prod.prod_id }}" class="h2 text-decoration-none text-dark">
-                                                    {{ Prod.prod_name }} </a>
+                                                    {{ Prod.prod_name }}
+                                                </a>
+                                                <!-- 노트북 태그 출력 -->
                                                 <p class="card-text">
                                                     <br>
-                                                    {% for spec in Prod_list_spec %}
-                                                        {% if spec.prod_id_id == Prod.prod_id %}
-                                                            {% if spec.option_id == 1 %}
-                                                                <div>
-                                                                <p>운영체제 : {{ spec.option_title }}</p>
-                                                                </div>
-                                                            {% elif spec.option_id == 2 and "인치" in spec.option_title %}
-                                                                <div>
-                                                                <p>화면 크기 : {{ spec.option_title }}</p>
-                                                                <p> </p>
-                                                                </div>
-                                                            {% elif spec.option_id == 3 and "AMD" in spec.option_title %}
-                                                                <p>CPU : AMD</p>
-                                                            {% elif spec.option_id == 3 and "인텔" in spec.option_title %}
-                                                                <p>CPU : 인텔</p>
-                                                            {% elif spec.option_id == 4 and "인치" in spec.option_title %}
-                                                                <p>GPU : {{ spec.option_title }}</p>
-                                                            {% elif spec.option_id == 2 and "인치" in spec.option_title %}
-                                                                <p>무게 : {{ spec.option_title }}</p>
-                                                            <hr>
-                                                            {% endif %}
+                                                    {% for spec in spec_tags_1 %}
+                                                         {% if spec.prod == Prod.prod_id %}
+                                                            {{ spec.name }}
+                                                        {% endif %}
+                                                    {% endfor %}
+
+                                                    {% for spec in spec_tags_2 %}
+                                                        {% if spec.prod == Prod.prod_id %}
+                                                            {{ spec.name }}
+                                                        {% endif %}
+                                                    {% endfor %}
+
+                                                    {% for spec in spec_tags_3 %}
+                                                        {% if spec.prod == Prod.prod_id %}
+                                                            {{ spec.name }}
+                                                        {% endif %}
+                                                    {% endfor %}
+
+                                                    {% for spec in spec_tags_4 %}
+                                                        {% if spec.prod == Prod.prod_id %}
+                                                            {{ spec.name }}
+                                                        {% endif %}
+                                                    {% endfor %}
+
+                                                    {% for spec in spec_tags_5 %}
+                                                        {% if spec.prod == Prod.prod_id %}
+                                                            {{ spec.name }}
                                                         {% endif %}
                                                     {% endfor %}
                                                     <br><br>

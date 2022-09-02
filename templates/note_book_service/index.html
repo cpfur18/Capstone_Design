@@ -73,35 +73,63 @@
             <div class="col-lg-9">
                 <div class="card mb-3">
                     <div class="row g-1 infinite-container">
-                        {% if Prod_list %}
-                            {% for Prod in Prod_list %}
-                                <div class="row infinite-item">
-                                    <div class="col-md-4">
-                                        <a href="">
-                                            <img src="{% get_static_prefix %}assets/img/{{ Prod.prod_id }}.jpg" alt={{ Prod.prod_id }}, class="card-img-top">
-                                        </a>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="card-body">
-                                            <a href="product/{{ Prod.prod_id }}" class="h2 text-decoration-none text-dark">
-                                                {{ Prod.prod_name }} </a>
-                                            <p class="card-text">
-                                                <br>
-                                                {% for spec in Prod_list_spec %}
-                                                    {{ spec.name }}
-                                                {% endfor %}
-                                                <br><br>
-                                                {{ Prod.prod_reg_date }}
-                                            </p>
-                                            <br><br><br>
-                                            <p class="text-muted"> {{ Prod.prod_price }}원</p>
-                                        </div>
-                                    </div>
-                                    <div></div>
+                        <!-- 상품 목록 불러오기 -->
+                        {% for Prod in Prod_list %}
+                            <div class="row infinite-item">
+                                <div class="col-md-4">
+                                    <a href="">
+                                        <img src="{% get_static_prefix %}assets/img/{{ Prod.prod_id }}.jpg" alt={{ Prod.prod_id }}, class="card-img-top">
+                                    </a>
                                 </div>
-                                <div class="border-top my-3"></div>
-                            {% endfor %}
-                        {% endif %}
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <!-- 노트북 이름 출력 -->
+                                        <a href="product/{{ Prod.prod_id }}" class="h2 text-decoration-none text-dark">
+                                            {{ Prod.prod_name }}
+                                        </a>
+                                        <!-- 노트북 태그 출력 -->
+                                        <p class="card-text">
+                                            <br>
+                                            {% for spec in spec_tags_1 %}
+                                                {% if spec.prod == Prod.prod_id %}
+                                                    {{ spec.name }}
+                                                {% endif %}
+                                            {% endfor %}
+
+                                            {% for spec in spec_tags_2 %}
+                                                {% if spec.prod == Prod.prod_id %}
+                                                    {{ spec.name }}
+                                                {% endif %}
+                                            {% endfor %}
+
+                                            {% for spec in spec_tags_3 %}
+                                                {% if spec.prod == Prod.prod_id %}
+                                                    {{ spec.name }}
+                                                {% endif %}
+                                            {% endfor %}
+
+                                            {% for spec in spec_tags_4 %}
+                                                {% if spec.prod == Prod.prod_id %}
+                                                    {{ spec.name }}
+                                                {% endif %}
+                                            {% endfor %}
+
+                                            {% for spec in spec_tags_5 %}
+                                                {% if spec.prod == Prod.prod_id %}
+                                                    {{ spec.name }}
+                                                {% endif %}
+                                            {% endfor %}
+                                            <br><br>
+                                            {{ Prod.prod_reg_date }}
+                                        </p>
+                                        <br><br><br>
+                                        <p class="text-muted"> {{ Prod.prod_price }}원</p>
+                                    </div>
+                                </div>
+                                <div></div>
+                            </div>
+                            <div class="border-top my-3"></div>
+                        {% endfor %}
                         <!-- 무한 스크롤 로딩 아이콘
                         <div class="d-flex justify-content-center" style="display:none;">
                             <div class="spinner-border" role="status">

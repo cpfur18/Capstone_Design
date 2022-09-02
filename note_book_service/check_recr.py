@@ -98,6 +98,5 @@ class recr_123:
             id = ratings.filter(disp__gte=4)
         return id
 
-recr_123().check_purpose(123123)
-print(123)
+# recr_123().check_purpose(123123)
 

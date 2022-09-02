@@ -25,40 +25,51 @@ def index(request):
     # 현 시각 Year, month
     # now = timezone.now()
     # kst = now.strftime('%y.%m')
-    
-    # jsp로 몇번 페이지인지 post신호를 사용해서 서버로 요청
-    
+
     page = request.GET.get('page', '1')  # 페이지
 
     # new_Prod_list = Prod.objects.order_by('-prod_id')[0:5]
-    new_Prod_list = Prod.objects.order_by('-prod_id')
+    Prod_id_list = Prod.objects.order_by('-prod_id')
 
-    paginator = Paginator(new_Prod_list, 10)  # 페이지당 10개씩 보여주기
+    paginator = Paginator(Prod_id_list, 5)  # 페이지당 5개씩 보여주기
     page_obj = paginator.get_page(1)
-    for prod_list in page_obj:
-        print(prod_list)
-        new_Prod_list_spec = prod_list.tags.values()
 
+    spec_tags_1 = page_obj.object_list[0].tags.values('prod', 'name')
+    spec_tags_2 = page_obj.object_list[1].tags.values('prod', 'name')
+    spec_tags_3 = page_obj.object_list[2].tags.values('prod', 'name')
+    spec_tags_4 = page_obj.object_list[3].tags.values('prod', 'name')
+    spec_tags_5 = page_obj.object_list[4].tags.values('prod', 'name')
 
     context = {'Prod_list': page_obj,
-               'Prod_list_spec': new_Prod_list_spec,
+               'spec_tags_1': spec_tags_1,
+               'spec_tags_2': spec_tags_2,
+               'spec_tags_3': spec_tags_3,
+               'spec_tags_4': spec_tags_4,
+               'spec_tags_5': spec_tags_5,
                }
     return render(request, 'note_book_service/index.html', context)
 
-def pageing(request):
-    page = request.GET.get('page', '1')  # 페이지
+def getpage(request, page):
 
-    # new_Prod_list = Prod.objects.order_by('-prod_id')[0:5]
+    page = request.GET.get('page', page)  # 페이지
+
     new_Prod_list = Prod.objects.order_by('-prod_id')
 
-    paginator = Paginator(new_Prod_list, 10)  # 페이지당 10개씩 보여주기
-    page_obj = paginator.get_page(1)
-    for prod_list in page_obj:
-        print(prod_list)
-        new_Prod_list_spec = prod_list.tags.values()
+    paginator = Paginator(new_Prod_list, 5)  # 페이지당 5개씩 보여주기
+    page_obj = paginator.get_page(page)
+
+    spec_tags_1 = page_obj.object_list[0].tags.values('prod', 'name')
+    spec_tags_2 = page_obj.object_list[1].tags.values('prod', 'name')
+    spec_tags_3 = page_obj.object_list[2].tags.values('prod', 'name')
+    spec_tags_4 = page_obj.object_list[3].tags.values('prod', 'name')
+    spec_tags_5 = page_obj.object_list[4].tags.values('prod', 'name')
 
     context = {'Prod_list': page_obj,
-               'Prod_list_spec': new_Prod_list_spec,
+               'spec_tags_1': spec_tags_1,
+               'spec_tags_2': spec_tags_2,
+               'spec_tags_3': spec_tags_3,
+               'spec_tags_4': spec_tags_4,
+               'spec_tags_5': spec_tags_5,
                }
     return render(request, 'note_book_service/index.html', context)
 
@@ -96,7 +107,6 @@ def cmd(request):
     return render(request, 'note_book_service/recommend.html', comd)
 
 def recr(request):
-
     purpose = request.POST['용도']
     wight = request.POST['휴대성']
     price = request.POST['예산']
@@ -129,13 +139,25 @@ def recr(request):
     id = recr_2.check_as(id, as_)
     print(id.values('prod_id'))
 
-    recr_Prod_list = Prod.objects.filter(prod_id__in=id).order_by('-prod_id')[0:10]
-    recr_Prod_list_spec = Prod_property.objects.filter(prod_id__in=recr_Prod_list).order_by('option_id')
+    recr_Prod_list = Prod.objects.filter(prod_id__in=id).order_by('-prod_id')
+    # recr_Prod_list_spec = Prod_property.objects.filter(prod_id__in=recr_Prod_list).order_by('option_id')
 
+    paginator = Paginator(recr_Prod_list, 5)  # 페이지당 5개씩 보여주기
+    page_obj = paginator.get_page(1)
+    # page_obj = paginator.get_page(page)
 
+    spec_tags_1 = page_obj.object_list[0].tags.values('prod', 'name')
+    spec_tags_2 = page_obj.object_list[1].tags.values('prod', 'name')
+    spec_tags_3 = page_obj.object_list[2].tags.values('prod', 'name')
+    spec_tags_4 = page_obj.object_list[3].tags.values('prod', 'name')
+    spec_tags_5 = page_obj.object_list[4].tags.values('prod', 'name')
 
-    context = {'Prod_list': recr_Prod_list,
-               'Prod_list_spec': recr_Prod_list_spec,
+    context = {'Prod_list': page_obj,
+               'spec_tags_1': spec_tags_1,
+               'spec_tags_2': spec_tags_2,
+               'spec_tags_3': spec_tags_3,
+               'spec_tags_4': spec_tags_4,
+               'spec_tags_5': spec_tags_5,
                }
     return render(request, 'note_book_service/rec_result.html', context)
     # return render(request, 'note_book_service/rec_result.html')
