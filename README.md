@@ -3,7 +3,7 @@
 
 내부 서버 URL은 http://127.0.0.1:8000/ 입니다.
 
-![작동구조]([DSU/img/3번 이미지.PNG](https://github.com/cpfur18/Capstone_Design/blob/ee6e49430110080280208bf22fddbd434689fd76/DSU/img/3%EB%B2%88%20%EC%9D%B4%EB%AF%B8%EC%A7%80.PNG)
+![3번 이미지](https://user-images.githubusercontent.com/65838532/188205727-b45a8859-a47e-4b3e-833d-93be8f255fa3.png)
 1. Python selenium bs4를 사용하여 에누리(종합쇼핑몰)에서 노트북 정보 크롤링
 2. Django ORM을 이용해 DB 저장
 3. 수집한 정보를 바탕으로 노트북 스펙 수치화 및 태그화
