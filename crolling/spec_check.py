@@ -30,12 +30,11 @@ intel_cpu_option = [130715, 214886, 130713, 130726, 211238, 211239, 130733, 1307
                     201885]
 i_intel_cpu_name = ["코어i3-", "코어i5-", "코어i7-", "코어i9-"]
 amd_cpu_option = [130715, 130713, 212862, 211238, 211239, 130733, 130730]
-gpu_option = [130614, 214673]
+gpu_option = [130614, 214673, 219056]
 ext_gpu_option = ["그래픽(NVIDIA)", "그래픽(AMD)", 218699, 130628]
 ram_option = [130643, 210963]
-stge_option = [130680, 210951]
+stge_option = [130680, 210951, 130678, 216825]
 battery_option = [213912, 130647, 130645]
-weight_option = [130641, 130644]
 add_option = [192356, 130633, 130683, 130658, 130640, 217044, 130651, 130663, 217083, 213912, 130647,
               217085,130635, 130674]
 # 웹캠 전면 specTitle + specContent 130687
@@ -51,37 +50,63 @@ class enuri:
         specTitle_dict = dict_spec.get("specTitle")
 
         if id_dict in os_option:
-            # print("운영체제 : " + specContent_dict)
             self.save_desc(fk_prod, 1, None, specContent_dict)
         # ============================== 디스플레이 =======================================
         elif id_dict in display_option:
-            # print("Display : " + specContent_dict)
             if "인치" in specContent_dict:
                 self.save_desc(fk_prod, 2, "d_size", specContent_dict)
+            elif id_dict == 130703:
+                self.save_desc(fk_prod, 2, "d_res", specContent_dict)
+            elif id_dict == 130709:
+                self.save_desc(fk_prod, 2, "d_pnl", specContent_dict)
+            elif id_dict == 130696:
+                self.save_desc(fk_prod, 2, "d_bhp", specContent_dict)
+            elif id_dict == 212910:
+                self.save_desc(fk_prod, 2, "d_rate", specContent_dict)
             else:
                 self.save_desc(fk_prod, 2, None, specContent_dict)
         elif id_dict in Color_display_option:
-            # print("Display : " + specTitle_dict + " " + specContent_dict)
-            self.save_desc(fk_prod, 2, None, specTitle_dict + " " + specContent_dict)
+            if id_dict == 217080:
+                self.save_desc(fk_prod, 2, "d_color_argb", specTitle_dict + " " + specContent_dict)
+            if id_dict == 217079:
+                self.save_desc(fk_prod, 2, "d_color_srgb", specTitle_dict + " " + specContent_dict)
+            if id_dict == 217078:
+                self.save_desc(fk_prod, 2, "d_color_ntsc", specTitle_dict + " " + specContent_dict)
+
         elif id_dict == 217081:
-            # print("Display : " + "DCI-P3")
-            self.save_desc(fk_prod, 2, None, specTitle_dict)
-        elif id_dict in apple_cpu_option:
-            # print("CPU : " + specContent_dict)
-            if id_dict == 211238:
-                self.save_desc(fk_prod, 3, "c_unit", specContent_dict)
-            else:
-                self.save_desc(fk_prod, 3, "c_name", specContent_dict)
+            self.save_desc(fk_prod, 2, "d_color_dci", specTitle_dict + " " + specContent_dict)
 
         # ================================= CPU =========================================
+        elif id_dict in apple_cpu_option:
+            if id_dict == 211238:
+                self.save_desc(fk_prod, 3, "c_unit", specContent_dict)
+            elif id_dict == 130715:
+                self.save_desc(fk_prod, 3, "c_co", specContent_dict)
+            else:
+                if "M1" in specContent_dict:
+                    specContent_dict = specContent_dict.replace('M1', 'Apple M1')
+                elif "M2" in specContent_dict:
+                    specContent_dict = specContent_dict.replace('M2', 'Apple M2')
+                self.save_desc(fk_prod, 3, "c_name", specContent_dict)
+
         elif id_dict in intel_cpu_option:
-            # print("CPU : " + specContent_dict)
-            if i_intel_cpu_name in specContent_dict:
+            if any(keyword in specContent_dict for keyword in i_intel_cpu_name):
                 specContent_dict = specContent_dict.replace('코어', '')
+                if "i3-12세대" in specContent_dict:
+                    specContent_dict = specContent_dict.replace('i3-12세대', '코어i3 12세대')
+                    self.save_desc(fk_prod, 3, None, specContent_dict)
+                else:
+                    self.save_desc(fk_prod, 3, "c_name", specContent_dict)
+            elif "펜티엄-" in specContent_dict:
+                specContent_dict = specContent_dict.replace('펜티엄-', '')
                 self.save_desc(fk_prod, 3, "c_name", specContent_dict)
             elif "셀러론-" in specContent_dict:
                 specContent_dict = specContent_dict.replace('셀러론-', 'Celeron ')
                 self.save_desc(fk_prod, 3, "c_name", specContent_dict)
+            elif id_dict == 201885:
+                self.save_desc(fk_prod, 3, "c_name", specContent_dict)
+            elif id_dict == 130715:
+                self.save_desc(fk_prod, 3, "c_co", specContent_dict)
             elif id_dict == 130713:
                 self.save_desc(fk_prod, 3, "c_gen", specContent_dict)
             elif id_dict == 211238:
@@ -90,15 +115,21 @@ class enuri:
                 self.save_desc(fk_prod, 3, "c_low_speed", specContent_dict)
             elif id_dict == 130733:
                 self.save_desc(fk_prod, 3, "c_top_speed", specContent_dict)
+            elif "확인 후 구매" in specContent_dict:
+                self.save_desc(fk_prod, 3, 'c_name', '직접확인')
             else:
                 self.save_desc(fk_prod, 3, None, specContent_dict)
 
         elif id_dict in amd_cpu_option:
-            # print("CPU : " + specContent_dict)
             if "라이젠" in specContent_dict:
                 specContent_dict = specContent_dict.replace('라이젠', 'Ryzen ')
                 specContent_dict = specContent_dict.replace('-', ' ')
                 self.save_desc(fk_prod, 3, "c_name", specContent_dict)
+            elif '퓨전APU-A4-' in specContent_dict:
+                specContent_dict = specContent_dict.replace('퓨전APU-A4-', 'AMD ')
+                self.save_desc(fk_prod, 3, "c_name", specContent_dict)
+            elif id_dict == 130715:
+                self.save_desc(fk_prod, 3, "c_co", specContent_dict)
             elif id_dict == 130713:
                 self.save_desc(fk_prod, 3, "c_gen", specContent_dict)
             elif id_dict == 211238:
@@ -110,34 +141,41 @@ class enuri:
             else:
                 self.save_desc(fk_prod, 3, None, specContent_dict)
 
+        elif id_dict == 219055:
+            self.save_desc(fk_prod, 3, "c_name", 'Snapdragon 7c')
         # ================================= 내장 그래픽 =========================================
         elif id_dict in gpu_option:
-            # print("내장 그래픽 : " + specContent_dict)
             if "Iris Xe" in specContent_dict:
                 specContent_dict = specContent_dict.replace('Iris Xe', 'Intel Iris Xe')
-                self.save_desc(fk_prod, 4, None, specContent_dict)
             elif "UHD Graphics" in specContent_dict:
                 specContent_dict = specContent_dict.replace('UHD Graphics', 'Intel UHD Graphics')
-            elif specContent_dict == "UHD600":
-                specContent_dict = specContent_dict.replace('UHD600', 'Intel UHD Graphics 600')
             elif "라데온 Graphics" in specContent_dict:
                 specContent_dict = specContent_dict.replace('라데온 Graphics', 'Radeon Graphics')
             elif "라데온 660M" in specContent_dict:
                 specContent_dict = specContent_dict.replace('라데온 660M', 'Radeon Graphics')
             elif "라데온 680M" in specContent_dict:
                 specContent_dict = specContent_dict.replace('라데온 680M', 'Radeon Graphics')
+            elif "라데온 RX Vega" in specContent_dict:
+                if "Vega 3" in specContent_dict:
+                    specContent_dict = specContent_dict.replace('라데온 RX Vega 3', 'Radeon Vega 3 Mobile')
+                else:
+                    specContent_dict = specContent_dict.replace('라데온 RX Vega', 'Radeon RX Vega')
             self.save_desc(fk_prod, 4, None, specContent_dict)
 
         # ================================= 외장 그래픽 =========================================
         elif specGroupname_id_dict in ext_gpu_option:
-            # print("외장 그래픽 : " + specContent_dict)
             if "RTX" in specContent_dict:
                 specContent_dict = specContent_dict.replace('RTX', 'RTX ')
+                if "RTX  A" in specContent_dict:
+                    specContent_dict = specContent_dict.replace('RTX  A', 'RTX A')
+            elif "GTX" in specContent_dict:
+                specContent_dict = specContent_dict.replace('GTX', 'GTX ')
             elif "쿼드로" in specContent_dict:
-                specContent_dict = specContent_dict.replace('쿼드로 ', '')
+                specContent_dict = specContent_dict.replace('쿼드로 ', 'Quadro ')
+            elif "라데온RX" in specContent_dict:
+                specContent_dict = specContent_dict.replace('라데온RX', 'Radeon RX ')
             self.save_desc(fk_prod, 5, "g_name", specContent_dict)
         elif id_dict in ext_gpu_option:
-            # print("외장 그래픽 : " + specContent_dict)
             if id_dict == 130628:
                 self.save_desc(fk_prod, 5, "g_memory", specContent_dict)
             elif id_dict == 218699:
@@ -147,39 +185,51 @@ class enuri:
 
         # ================================= RAM =========================================
         elif id_dict in ram_option:
-            # print("RAM : " + specContent_dict)
             if id_dict == 210963:
                 self.save_desc(fk_prod, 6, "ram_ddr", specContent_dict)
             elif id_dict == 130643:
-                self.save_desc(fk_prod, 6, "ram_cap", specContent_dict)
+                if "확인 후 구매" in specContent_dict:
+                    self.save_desc(fk_prod, 6, "ram_cap", "직접확인")
+                else:
+                    self.save_desc(fk_prod, 6, "ram_cap", specContent_dict)
 
         # ================================= 저장장치 =========================================
         elif id_dict in stge_option:
-            # print("Storage : " + specContent_dict)
-            if id_dict == 130680:
-                self.save_desc(fk_prod, 7, "stg_cap", specContent_dict)
+            if id_dict == 130680: # SSD
+                if "확인 후 구매" in specContent_dict:
+                    self.save_desc(fk_prod, 7, "stg_cap_ssd", "직접확인")
+                else:
+                    self.save_desc(fk_prod, 7, "stg_cap_ssd", specContent_dict)
+            elif id_dict == 130678: # HDD:
+                if "확인 후 구매" in specContent_dict:
+                    self.save_desc(fk_prod, 7, "stg_cap_hdd", "직접확인")
+                else:
+                    self.save_desc(fk_prod, 7, "stg_cap_hdd", specContent_dict)
+            elif id_dict == 216825: # eMMC
+                if "확인 후 구매" in specContent_dict:
+                    self.save_desc(fk_prod, 7, "stg_cap_emmc", "직접확인")
+                else:
+                    self.save_desc(fk_prod, 7, "stg_cap_emmc", specContent_dict)
             else:
                 self.save_desc(fk_prod, 7, None, specContent_dict)
 
         # ================================= 배터리 =========================================
         elif id_dict in battery_option:
-            # print("Battery : " + specContent_dict)
             if id_dict == 213912:
                 self.save_desc(fk_prod, 8, "battery_wh", specContent_dict)
             else:
                 self.save_desc(fk_prod, 8, None, specContent_dict)
 
         # ================================= 무게, 두께 =========================================
-        elif id_dict in weight_option:
-            # print("Weight : " + specContent_dict)
-            self.save_desc(fk_prod, 9, None, specContent_dict)
+        elif id_dict == 130644: # 무게
+            self.save_desc(fk_prod, 9, 'wt', specContent_dict)
+        elif id_dict == 130641: # 두께
+            self.save_desc(fk_prod, 9, 'thk', specContent_dict)
 
         # ================================= 부가기능 =========================================
         elif id_dict == 130687:
-            # print("ADD : " + specTitle_dict + specContent_dict)
             self.save_desc(fk_prod, 10, None, "웹캠 전면")
         elif id_dict in add_option:
-            # print("ADD : " + specContent_dict)
             self.save_desc(fk_prod, 10, None, specContent_dict)
         else:
             pass
@@ -206,8 +256,14 @@ class enuri:
                 print("DB 저장 완료")
                 print("\n")
                 time.sleep(0.25)
-
+        self.save_desc(Prod.objects.get(prod_id=87291419), 3, "c_name", "i7-11850H")
+        self.save_desc(Prod.objects.get(prod_id=87291711), 3, "c_name", "i7-11850H")
+        self.save_desc(Prod.objects.get(prod_id=86353204), 4, None, "Intel UHD Graphics")
+        self.save_desc(Prod.objects.get(prod_id=94001758), 3, 'c_name', "i7-1260P")
+        self.save_desc(Prod.objects.get(prod_id=97180767), 2, 'd_res', "1920x1200(WUXGA)")
+        print("누락 DB 저장 완료")
     # ===================================================================================
+
 if __name__ == '__main__':
     result = enuri()
     result.prodDesc()

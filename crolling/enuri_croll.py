@@ -57,8 +57,6 @@ class enuri:
         WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.CSS_SELECTOR, new_prod))).click()
         time.sleep(1)
 
-
-
     # 크롤링 함수
     def enuri_crolling(self, driver, spage, lpage):
 
@@ -101,8 +99,11 @@ class enuri:
                     #     print(model_id, company, name, price, reg_date, review_count[0], review_count[1])
 
                     #============================ 기본 정보 DB저장=============================================
-                    Prod(prod_id=model_id, prod_company=company, prod_name=name, prod_price=price,
-                         prod_reg_date=reg_date[-7:]).save()
+                    try:
+                        Prod(prod_id=model_id, prod_company=company, prod_name=name, prod_price=price,
+                             prod_reg_date=reg_date[-7:]).save()
+                    except:
+                        print("Error : Skip")
                     '''
                     if not review_count:
                         Prod(prod_id=model_id, prod_company=company, prod_name=name, prod_price=price,
@@ -148,7 +149,8 @@ class enuri:
         time.sleep(4)
 
         # 크롤링 Start(드라이버, 초기페이지, 마지막 페이지)
-        self.enuri_crolling(driver, 1, 190)
+        self.enuri_crolling(driver, 1, 60)
+
 
         # 브라우저 종료
         print("크롤링이 끝났습니다.")

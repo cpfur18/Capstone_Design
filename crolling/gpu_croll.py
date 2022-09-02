@@ -66,6 +66,7 @@ class gpu_mark:
     def gpu_croll(self, soup):
             # GPU 리스트 저장
             gpu_list = soup.select('table.dataTable-blue.dataTable.no-footer > tbody > tr')
+            Quadro_list = ["T500", "T550", "T600", "T1200"]
 
             for gputable in gpu_list:
             # GPU_이름, GPU_벤치마크_정보 저장
@@ -74,6 +75,19 @@ class gpu_mark:
 
                 # 숫자 단위 콤마 제거
                 mark = int(mark.replace(",", ""))
+                if " Laptop GPU" in name:
+                    name = name.replace(' Laptop GPU', '')
+                if " (Mobile)" in name:
+                    name = name.replace(' (Mobile)', '')
+                if "Intel UHD Graphics " in name:
+                    name = name.replace('Intel UHD Graphics ', 'UHD')
+                if "with Max-Q Design" in name:
+                    name = name.replace('with Max-Q Design', 'Max-Q')
+                if "Intel HD " in name:
+                    name = name.replace('Intel HD ', 'HD')
+                if any(keyword in name for keyword in Quadro_list):
+                    name = name.replace('T', 'Quadro T')
+
                 print(name, mark)
 
                 # DB 저장
@@ -86,13 +100,28 @@ class gpu_mark:
         # 1차 크롤링
         self.select_button(4, driver)
         self.sort_button(driver)
-        time.sleep(2)
+        time.sleep(5)
         self.gpu_croll(self.init_bs4(driver))
 
         # 2차 크롤링
         self.select_button(2, driver)
-        time.sleep(2)
+        time.sleep(5)
         self.gpu_croll(self.init_bs4(driver))
+
+        Passmark_gpu_info(gpu_name="GTX 1650 Ti Max-Q", gpu_mark=5924).save()
+        Passmark_gpu_info(gpu_name="RTX 2070 SUPER Max-Q", gpu_mark=13000).save()
+        Passmark_gpu_info(gpu_name="RTX 3060 Max-Q", gpu_mark=11865).save()
+        Passmark_gpu_info(gpu_name="RTX 3050 Ti Max-Q", gpu_mark=11000).save()
+        Passmark_gpu_info(gpu_name="RTX 3070 Max-Q", gpu_mark=14273).save()
+        Passmark_gpu_info(gpu_name="RTX 2080 Super", gpu_mark=16107).save()
+        Passmark_gpu_info(gpu_name="RTX 2080 SUPER Max-Q", gpu_mark=14000).save()
+        Passmark_gpu_info(gpu_name="Radeon RX 6500M", gpu_mark=9045).save()
+        Passmark_gpu_info(gpu_name="Ryzen 7 PRO 6850H with Radeon Graphics", gpu_mark=3736).save()
+        Passmark_gpu_info(gpu_name="Ryzen 7 PRO 5875U with Radeon Graphics", gpu_mark=2450).save()
+        Passmark_gpu_info(gpu_name="Ryzen 5 PRO 5675U with Radeon Graphics", gpu_mark=2528).save()
+        Passmark_gpu_info(gpu_name="Ryzen 5 PRO 5675 with Radeon Graphics", gpu_mark=3736).save()
+        Passmark_gpu_info(gpu_name="Ryzen 5 6600HS with Radeon Graphics", gpu_mark=3736).save()
+        Passmark_gpu_info(gpu_name="UHD620", gpu_mark=1034).save()
 
         # 브라우저 종료
         driver.close()

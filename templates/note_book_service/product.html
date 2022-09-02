@@ -25,12 +25,12 @@
                                 <p class="text-muted"><strong>{{ Prod.prod_price }}</strong></p>
                             </li>
                         </ul>
-                        <h6>사용자가 등록한 태그:</h6>
+
                         <div class="row">
-                            <div class="col-md-3">#게이밍</div>
-                            <div class="col-md-3">#뛰어난</div>
-                            <div class="col-md-3">#무거운</div>
-                            <div class="col-md-3">#발열</div>
+                            {% for tags in Prod_tags %}
+                                <div class="col-md-3">{{ tags.name }}</div>
+                            {% endfor %}
+
                         </div>
 
                         <br>
@@ -61,10 +61,10 @@
             <div class="row">
                 <br><br>
                 <p>
-                - CPU : <br>
-                - GPU : <br>
-                - 메모리(램) : <br>
-                - 저장장치 :
+                - CPU : {% for ratings in ratings %} {{ ratings.cpu }} {% endfor %} <br>
+                - GPU : {% for ratings in ratings %} {{ ratings.gpu }} {% endfor %} <br>
+                - 메모리(램) : {% for ratings in ratings %} {{ ratings.ram }} {% endfor %} <br>
+                - 저장장치 : {% for ratings in ratings %} {{ ratings.stg }} {% endfor %}
                 </p>
             </div>
             <br>
@@ -73,21 +73,27 @@
             </div>
             <br>
             <div class="row">
-                <h1 class="h5">라이젠 7-4세대</h1>
+<!--                -->CPU 정보 출력
+                <h1 class="h5">{% for spec in Prod_list_spec %}
+                                    {% if spec.option_title == "c_name" %}
+                                        {{ spec.option_Content }}
+                                    {% endif %}
+                                {% endfor %}</h1>
                 <p>
                  9코어 16스래드, 기본3.2GHz 최대4.4GHz 클럭
                 <br><br>
                  AMD 제품 중 높은 등급에 해당하는 라이젠7 시리즈 CPU가 탑재되어 있으며, 가장 최근인 2020년 출시된 4세대 제품입니다. 세부 사양에 따라 차이가 있지만 일반적으로 고사양 작업과 게임용으로 사용되는 등급의 CPU입니다.<br>
                 </p>
-                <h5 class="h5">세부타입 : H</h1>
+                <h5 class="h5">세부타입 : H</h5>
                     <p>
                         CPU넘버 끝자리에 'H'가 붙어있는 모델로, 모바일용 고성능 CPU를 의미합니다.<br>
                 </p>
-                <h5 class="h5">내장 그래픽 탑재</h1>
+
+                <h5 class="h5">내장 그래픽 탑재</h5>
                     <p>
                         AMD의 Radeon Graphics 내장 그래픽이 탑재된 CPU입니다.<br>
                 </p>
-                <h5 class="h5">CPU 벤치마크 점수 : 21488점</h1>
+                <h5 class="h5">CPU 벤치마크 점수 : 21488점</h5>
                     <p>
                         2022년 4월, PassMark 기준 벤치마크 점수는 21488점으로,
                         현재 판매되는 노트북에 탑재된 CPU 중 상위 23% 이내 점수에 해당하는 비교적 뛰어난 성능의 제품입니다.<br>

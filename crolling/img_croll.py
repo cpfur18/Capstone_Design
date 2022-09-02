@@ -9,7 +9,7 @@ import os
 import sys
 
 # 프로젝트 절대경로
-sys.path.append('D:\Capstone_Design\config')
+sys.path.append('C:\Capstone_Design\config')
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 
 # 웹프레임워크
@@ -29,11 +29,6 @@ from selenium.webdriver.support import expected_conditions as EC
 # BeautifulSoup import
 from bs4 import BeautifulSoup
 import time
-
-# Json 크롤링
-import json
-import urllib.request as req
-
 
 class enuri:
     # 크롬 드라이버 초기화
@@ -66,7 +61,6 @@ class enuri:
         WebDriverWait(driver, 3).until(EC.presence_of_element_located((By.CSS_SELECTOR, new_prod))).click()
         time.sleep(1)
 
-
 # 이미지 크롤링
 class enuri_img(enuri):
     def enuri_crolling_img(self, driver, spage, lpage):
@@ -84,12 +78,18 @@ class enuri_img(enuri):
                 # 상품명, 가격 저장
                 model_id = item_list.attrs["data-model-origin"]
                 images = item_list.select_one("div.item__thumb > a > img").get('src')
-                # img_url.append(images)
-                print(model_id, " : ", images)
-                urllib.request.urlretrieve(images, f'D:/Capstone_Design/static/assets/img/{model_id}.jpg')
-
-                fk_prod = Prod.objects.get(prod_id=model_id)
-                Prod_img(prod_id=fk_prod, prod_img_src=f'static/assets/img/{model_id}').save()
+                try:
+                    Prod_img.objects.get(prod_id=model_id)
+                    print("PASS")
+                except:
+                    # img_url.append(images)
+                    print(model_id, " : ", images)
+                    urllib.request.urlretrieve(images, f'C:/Capstone_Design/static/assets/img/{model_id}.jpg')
+                    try:
+                        fk_prod = Prod.objects.get(prod_id=model_id)
+                        Prod_img(prod_id=fk_prod, prod_img_src=f'static/assets/img/{model_id}').save()
+                    except:
+                        continue
                 count += 1
 
             print('===============================================')
@@ -120,7 +120,7 @@ class enuri_img(enuri):
         self.button_click(driver)
         time.sleep(2)
 
-        self.enuri_crolling_img(driver, 1, 30)
+        self.enuri_crolling_img(driver, 1, 120)
 
         # 브라우저 종료
         print("크롤링이 끝났습니다.")

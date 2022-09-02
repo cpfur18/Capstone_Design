@@ -74,12 +74,30 @@ class cpu_mark:
                 mark = cputable.select_one('td.sorting_1').text
                 # 숫자 단위 콤마 제거
 
+                name = name.split(" @ ")[0]
                 mark = int(mark.replace(",", ""))
+
                 print(name, mark)
 
-
                 # DB 저장
-                Passmark_cpu_info(cpu_name=name, cpu_mark=mark).save()
+                if "AMD Ryzen 7 4800HS" in name:
+                    print("AMD Ryzen 7 4800HS")
+                    continue
+                if "Intel Core i7-1185G7E" in name:
+                    print("Intel Core i7-1185G7E")
+                    continue
+                if "Intel Core i5-8365UE" in name:
+                    print("Intel Core i5-8365UE")
+                    continue
+                if "Intel Pentium 5405U" in name:
+                    print("Intel Pentium 5405U")
+                    Passmark_cpu_info(cpu_name="Intel Pentium G5405U", cpu_mark=2269).save()
+                if "Intel Celeron N4020C" in name:
+                    continue
+                else:
+                    if "Intel Xeon W-" in name:
+                        name = name.replace('Intel Xeon W-', '제온W-')
+                    Passmark_cpu_info(cpu_name=name, cpu_mark=mark).save()
 
     def cpu_benchmark(self):
         # webdirver 설정
@@ -95,6 +113,14 @@ class cpu_mark:
         self.select_button(2, driver)
         time.sleep(3)
         self.cpu_croll(self.init_bs4(driver))
+
+        Passmark_cpu_info(cpu_name="AMD Ryzen 5 4650U", cpu_mark=12836).save()
+        Passmark_cpu_info(cpu_name="AMD Ryzen 5 4680U", cpu_mark=12900).save()
+        Passmark_cpu_info(cpu_name="AMD Ryzen 7 4980U", cpu_mark=17017).save()
+        Passmark_cpu_info(cpu_name="Intel Pentium G6405U", cpu_mark=2370).save()
+        Passmark_cpu_info(cpu_name="Intel Celeron N4020", cpu_mark=1570).save()
+        Passmark_cpu_info(cpu_name="Intel Celeron N4500", cpu_mark=1914).save()
+        Passmark_cpu_info(cpu_name="AMD Ryzen 5 6600HS", cpu_mark=20400).save()
 
         # 브라우저 종료
         driver.close()
