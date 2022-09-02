@@ -9,7 +9,7 @@ import os
 import sys
 
 # 프로젝트 절대경로
-sys.path.append('C:\Capstone_Design\config')
+sys.path.append('D:\Capstone_Design\config')
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 
 # 웹프레임워크
@@ -84,7 +84,7 @@ class enuri_img(enuri):
                 except:
                     # img_url.append(images)
                     print(model_id, " : ", images)
-                    urllib.request.urlretrieve(images, f'C:/Capstone_Design/static/assets/img/{model_id}.jpg')
+                    urllib.request.urlretrieve(images, f'D:/Capstone_Design/static/assets/img/{model_id}.jpg')
                     try:
                         fk_prod = Prod.objects.get(prod_id=model_id)
                         Prod_img(prod_id=fk_prod, prod_img_src=f'static/assets/img/{model_id}').save()
@@ -112,7 +112,7 @@ class enuri_img(enuri):
             del soup
 
             # 10초간 대기
-            time.sleep(3)
+            time.sleep(5)
 
     def enuri_img_croll(self):
         driver = self.init_driver()
@@ -120,7 +120,7 @@ class enuri_img(enuri):
         self.button_click(driver)
         time.sleep(2)
 
-        self.enuri_crolling_img(driver, 1, 120)
+        self.enuri_crolling_img(driver, 1, 300)
 
         # 브라우저 종료
         print("크롤링이 끝났습니다.")

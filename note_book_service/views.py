@@ -143,7 +143,7 @@ def recr(request):
     # recr_Prod_list_spec = Prod_property.objects.filter(prod_id__in=recr_Prod_list).order_by('option_id')
 
     paginator = Paginator(recr_Prod_list, 5)  # 페이지당 5개씩 보여주기
-    page_obj = paginator.get_page(1)
+    page_obj = paginator.get_page(5)
     # page_obj = paginator.get_page(page)
 
     spec_tags_1 = page_obj.object_list[0].tags.values('prod', 'name')
