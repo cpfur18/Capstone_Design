@@ -10,8 +10,8 @@ from django.http import HttpResponse
 from django.core import serializers
 from board.models import Post
 from .models import Prod, Prod_property, Prod_ratings
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from . import check_recr
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 def getApi(request):
     property = Prod_property.objects.filter(prod_id__exact=97149727).order_by('option_id')
@@ -25,21 +25,40 @@ def index(request):
     # 현 시각 Year, month
     # now = timezone.now()
     # kst = now.strftime('%y.%m')
+    
+    # jsp로 몇번 페이지인지 post신호를 사용해서 서버로 요청
+    
+    page = request.GET.get('page', '1')  # 페이지
 
     # new_Prod_list = Prod.objects.order_by('-prod_id')[0:5]
-    # print(new_Prod_list)
-    # for prod_list in new_Prod_list:
-    #     print(prod_list, "\n")
-    #     print(prod_list.tags.all())
-    new_Prod_list = Prod.objects.order_by('-prod_id')[0:5]
-    for prod_list in new_Prod_list:
+    new_Prod_list = Prod.objects.order_by('-prod_id')
+
+    paginator = Paginator(new_Prod_list, 10)  # 페이지당 10개씩 보여주기
+    page_obj = paginator.get_page(1)
+    for prod_list in page_obj:
         print(prod_list)
         new_Prod_list_spec = prod_list.tags.values()
-    # print(list(id_Prod.values()))
 
-    context = {'Prod_list': new_Prod_list,
+
+    context = {'Prod_list': page_obj,
                'Prod_list_spec': new_Prod_list_spec,
+               }
+    return render(request, 'note_book_service/index.html', context)
 
+def pageing(request):
+    page = request.GET.get('page', '1')  # 페이지
+
+    # new_Prod_list = Prod.objects.order_by('-prod_id')[0:5]
+    new_Prod_list = Prod.objects.order_by('-prod_id')
+
+    paginator = Paginator(new_Prod_list, 10)  # 페이지당 10개씩 보여주기
+    page_obj = paginator.get_page(1)
+    for prod_list in page_obj:
+        print(prod_list)
+        new_Prod_list_spec = prod_list.tags.values()
+
+    context = {'Prod_list': page_obj,
+               'Prod_list_spec': new_Prod_list_spec,
                }
     return render(request, 'note_book_service/index.html', context)
 
