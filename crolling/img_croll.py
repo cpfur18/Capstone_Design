@@ -88,10 +88,10 @@ class enuri_img(enuri):
                     try:
                         fk_prod = Prod.objects.get(prod_id=model_id)
                         Prod_img(prod_id=fk_prod, prod_img_src=f'static/assets/img/{model_id}').save()
+                        count += 1
                     except:
+                        print("Img Crolling errer(Prod_id not found)")
                         continue
-                count += 1
-
             print('===============================================')
             print('반복횟수 : ', count)
             # 페이지 변수 증가

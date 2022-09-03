@@ -20,7 +20,6 @@ if select >= 1 or select == 4:
         startPage = 1
         lastPage = 6
 
-
     # 노트북 리뷰 크롤링
     if select == 2:
         # 페이지 시작 끝 설정

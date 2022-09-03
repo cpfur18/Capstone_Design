@@ -256,11 +256,11 @@ class enuri:
                 print("DB 저장 완료")
                 print("\n")
                 time.sleep(0.25)
-        self.save_desc(Prod.objects.get(prod_id=87291419), 3, "c_name", "i7-11850H")
-        self.save_desc(Prod.objects.get(prod_id=87291711), 3, "c_name", "i7-11850H")
-        self.save_desc(Prod.objects.get(prod_id=86353204), 4, None, "Intel UHD Graphics")
-        self.save_desc(Prod.objects.get(prod_id=94001758), 3, 'c_name', "i7-1260P")
-        self.save_desc(Prod.objects.get(prod_id=97180767), 2, 'd_res', "1920x1200(WUXGA)")
+        # self.save_desc(Prod.objects.get(prod_id=87291419), 3, "c_name", "i7-11850H")
+        # self.save_desc(Prod.objects.get(prod_id=87291711), 3, "c_name", "i7-11850H")
+        # self.save_desc(Prod.objects.get(prod_id=86353204), 4, None, "Intel UHD Graphics")
+        # self.save_desc(Prod.objects.get(prod_id=94001758), 3, 'c_name', "i7-1260P")
+        # self.save_desc(Prod.objects.get(prod_id=97180767), 2, 'd_res', "1920x1200(WUXGA)")
         print("누락 DB 저장 완료")
     # ===================================================================================
 
