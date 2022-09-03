@@ -1,7 +1,8 @@
 ### Django, PostgreSQL, Bootstrap 5을 사용한 노트북 추천 웹서비스 입니다.
 ## 큐레이션, 커뮤니티, 직접탐색 기능 구현 중 입니다.
 
-내부 서버 URL은 http://127.0.0.1:8000/ 입니다.
+관리자 페이지 URL : http://127.0.0.1:8000/admin
+    내부 서버 URL : http://127.0.0.1:8000/
 
 ![3번 이미지](https://user-images.githubusercontent.com/65838532/188205727-b45a8859-a47e-4b3e-833d-93be8f255fa3.png)
 
