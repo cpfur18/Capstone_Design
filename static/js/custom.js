@@ -37,8 +37,11 @@ document.addEventListener("DOMContentLoaded", function(){
     });
     $('.note-resizebar').css('display','none');
     $('.dropdown-toggle').dropdown()
+    
+    $(".sticky-top").css(
+        "background", "white"
+    )
 
-    /* 무한스크롤
     var infinite = new Waypoint.Infinite({
         element: $('.infinite-container')[0],
         offset: 'bottom-in-view',
@@ -49,9 +52,4 @@ document.addEventListener("DOMContentLoaded", function(){
             $('.spinner-border').hide();
         }
     })
-    */
-    //navbar를
-    $(".sticky-top").css(
-        "background", "white"
-    )
 });

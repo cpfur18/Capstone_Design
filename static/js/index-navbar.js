@@ -16,6 +16,6 @@ document.addEventListener("DOMContentLoaded", function(){
         '               <td class="nav-item flex-fill"><a class="nav-link text-success h5 text-center" href="videoWatch" id="videoWatch">영상시청</a></td>' +
         '           </tr>' +
         '        </table>' +
-        '    </section>' +
+        '    </section>'
     $('#nv').after(index_nav)
 });

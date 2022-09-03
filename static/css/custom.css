@@ -27,3 +27,15 @@ table tr td a {
     width: 30px;
     height: 30px;
 }
+/* 추천 페이지 input 버튼 */
+.rec_q_group div label{
+    box-shadow: none !important;
+    color: #0dcaf0;
+}
+.rec_q_group div label:hover{
+    color: blueviolet;
+}
+.rec_q_group div input:checked+label{
+    color: white !important;
+    background-color: #198754 !important;
+}

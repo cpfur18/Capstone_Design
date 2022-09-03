@@ -32,7 +32,7 @@ def index(request):
     Prod_id_list = Prod.objects.order_by('-prod_id')
 
     paginator = Paginator(Prod_id_list, 5)  # 페이지당 5개씩 보여주기
-    page_obj = paginator.get_page(1)
+    page_obj = paginator.get_page(page)
 
     page_count = len(page_obj.object_list)
     spec_tags_1 = None

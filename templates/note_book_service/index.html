@@ -126,23 +126,22 @@
                                         <p class="text-muted"> {{ Prod.prod_price }}원</p>
                                     </div>
                                 </div>
-                                <div></div>
                             </div>
                             <div class="border-top my-3"></div>
                         {% endfor %}
-                        <!-- 무한 스크롤 로딩 아이콘
+
                         <div class="d-flex justify-content-center" style="display:none;">
                             <div class="spinner-border" role="status">
                                 <span class="sr-only">Loading...</span>
                             </div>
                         </div>
-                        -->
+
                     </div>
-                    <!-- 무한 스크롤 작동에 필요한 부분(페이지가 남아 있다면 다음 페이지 출력)
+
                     {% if Prod_list.has_next %}
-                        <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a>
+                        <a class="infinite-more-link" href="?page={{ Prod_list.next_page_number }}"></a>
                     {% endif %}
-                    -->
+
                 </div>
             </div>
             <div class="col-lg-3">
