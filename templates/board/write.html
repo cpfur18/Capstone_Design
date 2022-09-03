@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+{% include 'comm_UI1.html' %}
+    <!-- 글 쓰기 -->
+                <a class="btn btn-success px-3" href="{% url 'board:community' %}">글 목록</a>
+            </div>
+        </div>
+        <div class="row">
+        {% include 'comm_UI2.html' %}
+
+            <!-- 웹 에디터.-->
+            <div class="col-md-9 mb-3">
+                <form action="/board/create"method="post">
+                    {% csrf_token %}
+                    {{ PostForm }}
+                    <input name="title" type="text" class="form-control mb-1" placeholder="제목">
+                    <textarea name="contents" id="summernote"></textarea>
+                    <input type="submit" value="등록" class="form-control mt-1">
+                </form>
+            </div>
+            <!-- End 웹 에디터 -->
+        </div>
+
+    </div>
+{% endblock %}

@@ -5,19 +5,38 @@ from board.forms import PostForm
 #from board.forms import PostForm
 from board.models import Post
 
+def comm(request):
+    posts = Post.objects.all().order_by('-id') #object : ORM에서 사용되는 manage 객체 => all은 모두 가져오는 것. get은 하나.
+    context = {'posts':posts}
+    return render(request, "board/community.html", context)
+
 # Create your views here.
-#def getpostwrite(request):
-#    title1 = request.POST.get("title")
-#    content1 = request.POST.get("content")
-#    context = { 'posttitle':title1, 'postcontent':content1}
-#    return render(request, "note_book_service/community.html", context)
+def getpostwrite(request):
+   title1 = request.POST.get("title")
+   content1 = request.POST.get("content")
+   context = { 'posttitle':title1, 'postcontent':content1}
+   return render(request, "board/community.html", context)
+
+def pstif(request):
+    best_pstif = 1
+    best_pstif_list = 2
+    pstt = {'best_pstif' : best_pstif,
+            'best_pstif_list' : best_pstif_list,}
+    return render(request, 'board/postinfo.html', pstt)
+
+def wrt(request):
+    best_wrt = 1
+    best_wrt_list = 2
+    wrtt = {'best_wrt' : best_wrt,
+            'best_wrt_list' : best_wrt_list,}
+    return render(request, 'board/write.html', wrtt)
 
 @login_required(login_url='/login')
 def create(request):
     if request.method == "GET":
         postForm = PostForm() #만든 데이터를 딕셔너리 형태로 넘겨줌
         context = {'postForm':postForm}
-        return render(request, "note_book_service/community.html", context)
+        return render(request, "board/community.html", context)
     if request.method == "POST":
         postForm = PostForm(request.POST)
         if postForm.is_valid():
@@ -26,12 +45,12 @@ def create(request):
             post.save()
         posts = Post.objects.all().order_by('-id') #object : ORM에서 사용되는 manage 객체 => all은 모두 가져오는 것. get은 하나.
         context = {'posts':posts}
-        return render(request, "note_book_service/community.html", context)
+        return render(request, "board/community.html", context)
 
 def list(request):
     posts = Post.objects.all().order_by('-id') #object : ORM에서 사용되는 manage 객체 => all은 모두 가져오는 것. get은 하나.
     context = {'posts':posts}
-    return render(request, "note_book_service/community.html", context)
+    return render(request, "board/community.html", context)
 
 #def read(request, bid):
 #    post = Post.object.get(id=bid)

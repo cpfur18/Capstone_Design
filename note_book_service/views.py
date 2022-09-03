@@ -13,14 +13,6 @@ from .models import Prod, Prod_property, Prod_ratings
 from . import check_recr
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
-def getApi(request):
-    property = Prod_property.objects.filter(prod_id__exact=97149727).order_by('option_id')
-    property_list = serializers.serialize('json', property)
-    return HttpResponse(property_list, content_type="text/json-comment-filtered; charset=utf-8")
-
-def apiTest(request):
-    return render(request, 'apiTest.html')
-
 def index(request):
     # 현 시각 Year, month
     # now = timezone.now()
@@ -35,55 +27,21 @@ def index(request):
     page_obj = paginator.get_page(page)
 
     page_count = len(page_obj.object_list)
+    print("=========================================================================")
+    print(page_obj.object_list)
     spec_tags_1 = None
     spec_tags_2 = None
     spec_tags_3 = None
     spec_tags_4 = None
     spec_tags_5 = None
-
-    if page_count == 1:
+    print("=========================================================================")
+    if page_count >= 1:
         spec_tags_1 = page_obj.object_list[0].tags.values('prod', 'name')
-    if page_count == 2:
+    if page_count >= 2:
         spec_tags_2 = page_obj.object_list[1].tags.values('prod', 'name')
-    if page_count == 3:
+    if page_count >= 3:
         spec_tags_3 = page_obj.object_list[2].tags.values('prod', 'name')
-    if page_count == 4:
-        spec_tags_4 = page_obj.object_list[3].tags.values('prod', 'name')
-    if page_count == 5:
-        spec_tags_5 = page_obj.object_list[4].tags.values('prod', 'name')
-
-    context = {'Prod_list': page_obj,
-               'spec_tags_1': spec_tags_1,
-               'spec_tags_2': spec_tags_2,
-               'spec_tags_3': spec_tags_3,
-               'spec_tags_4': spec_tags_4,
-               'spec_tags_5': spec_tags_5,
-               }
-    return render(request, 'note_book_service/index.html', context)
-
-def getpage(request, page):
-
-    page = request.GET.get('page', page)  # 페이지
-
-    new_Prod_list = Prod.objects.order_by('-prod_id')
-
-    paginator = Paginator(new_Prod_list, 5)  # 페이지당 5개씩 보여주기
-    page_obj = paginator.get_page(page)
-
-    page_count = len(page_obj.object_list)
-    spec_tags_1 = None
-    spec_tags_2 = None
-    spec_tags_3 = None
-    spec_tags_4 = None
-    spec_tags_5 = None
-
-    if page_count == 1:
-        spec_tags_1 = page_obj.object_list[0].tags.values('prod', 'name')
-    if page_count == 2:
-        spec_tags_2 = page_obj.object_list[1].tags.values('prod', 'name')
-    if page_count == 3:
-        spec_tags_3 = page_obj.object_list[2].tags.values('prod', 'name')
-    if page_count == 4:
+    if page_count >= 4:
         spec_tags_4 = page_obj.object_list[3].tags.values('prod', 'name')
     if page_count == 5:
         spec_tags_5 = page_obj.object_list[4].tags.values('prod', 'name')
@@ -174,13 +132,13 @@ def recr(request):
     spec_tags_4 = None
     spec_tags_5 = None
 
-    if page_count == 1:
+    if page_count >= 1:
         spec_tags_1 = page_obj.object_list[0].tags.values('prod', 'name')
-    if page_count == 2:
+    if page_count >= 2:
         spec_tags_2 = page_obj.object_list[1].tags.values('prod', 'name')
-    if page_count == 3:
+    if page_count >= 3:
         spec_tags_3 = page_obj.object_list[2].tags.values('prod', 'name')
-    if page_count == 4:
+    if page_count >= 4:
         spec_tags_4 = page_obj.object_list[3].tags.values('prod', 'name')
     if page_count == 5:
         spec_tags_5 = page_obj.object_list[4].tags.values('prod', 'name')
@@ -194,23 +152,3 @@ def recr(request):
                }
     return render(request, 'note_book_service/rec_result.html', context)
     # return render(request, 'note_book_service/rec_result.html')
-
-def comm(request):
-    posts = Post.objects.all().order_by('-id') #object : ORM에서 사용되는 manage 객체 => all은 모두 가져오는 것. get은 하나.
-    context = {'posts':posts}
-    return render(request, "note_book_service/community.html", context)
-    #return render(request, 'note_book_service/community.html', commu)
-
-def pstif(request):
-    best_pstif = 1
-    best_pstif_list = 2
-    pstt = {'best_pstif' : best_pstif,
-            'best_pstif_list' : best_pstif_list,}
-    return render(request, 'note_book_service/postinfo.html', pstt)
-
-def wrt(request):
-    best_wrt = 1
-    best_wrt_list = 2
-    wrtt = {'best_wrt' : best_wrt,
-            'best_wrt_list' : best_wrt_list,}
-    return render(request, 'note_book_service/write.html', wrtt)

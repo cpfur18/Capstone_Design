@@ -8,5 +8,6 @@ urlpatterns = [
     path('', include('note_book_service.urls')),
     path('', include('sign.urls')),
     path('', views.index, name='index'),
-    path('board/create', board.views.create),
+    path('', include('board.urls')),
+    # path('board/create', board.views.create),
 ]

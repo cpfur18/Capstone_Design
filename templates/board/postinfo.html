@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+{% include 'comm_UI1.html' %}
+    <!-- 게시글 뷰어 -->
+                <button type="button" class="btn btn-warning px-3">수정</button>
+                <button type="button" class="btn btn-danger px-3 mx-1">삭제</button>
+                <a class="btn btn-success px-3" href="{% url 'board:community' %}">글 목록</a>
+            </div>
+        </div>
+        <div class="row">
+            {% include 'comm_UI2.html' %}
+            <!-- 뷰어 -->
+            <div class="col-md-9">
+                <div class="card mb-3 p-3">
+                    <div class="row g-0">
+                        <strong class="card-title mb-4 h3">게시글 예시</strong>
+                        <div class="row">
+                            <!--프로필 아이콘은 -->
+                            <div class="col-6 text-success media d-flex">
+                                <img src="{% static 'test img/user.png' %}" class="img-circle" alt="...">
+                                <h6 class="h6 mb-0 pb-0 mx-2 pt-2">닉네임</h6>
+                            </div>
+                            <div class="col-6 align-right"><h6 class="h6 mb-0 pb-0 pt-2">작성일시</h6></div>
+                        </div>
+                        <hr class="my-3"/>
+                        <div class="card-body">
+                            <p class="card-text">
+                                <a href="#">
+                                    <img src="{% static 'test img/legion 5i pro.jpg' %}" class="card-img-top" alt="...">
+                                </a>
+                                정말 좋아요
+                            </p>
+                        </div>
+                        <hr class="my-3"/>
+                        <div class="mb-4 h3">댓글 1</div>
+                        <!-- 댓글 등록 : 로그인 시에만 등록 가능-->
+                        {% if user.is_authenticated %}
+                        <div class="text-success d-flex row pr-0">
+                            <div class="media col-lg-1 col-md-2 d-none d-md-block text-center"><img src="{% static 'test img/user.png' %}" class="img-circle" alt="..."></div>
+                            <form class="col-lg-11 col-md-10 comment pr-0 mr-0" method="post" role="form">
+                                    <div class="px-0 form-row d-flex">
+                                        <div class="col-9 col-lg-10">
+                                            <textarea class="form-control" id="comment-textarea" name="comment-textarea" placeholder="댓글을 입력하세요"></textarea>
+                                        </div>
+                                        <div class="col-3 col-lg-2 text-center">
+                                            <button type="submit" class="btn btn-success">등록</button>
+                                        </div>
+                                    </div>
+                            </form>
+                        </div>
+                        {% else %}
+                        <hr class="my-3"/>
+                        <!-- End 댓글 등록 -->
+                        <!-- 댓글 리스트 -->
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item pb-1">
+                                <div class="text-success media d-flex mb-2 row">
+                                    <div class="col-9 col-lg-10 d-flex">
+                                        <img src="{% static 'test img/user.png' %}" class="img-circle" alt="...">
+                                        <h6 class="h6 mt-2">닉네임</h6>
+                                    </div>
+                                    <div class="col-3 col-lg-2 d-flex justify-content-end px-0">
+                                        <button type="button" class="btn btn-warning ml-0 p-2 mx-1">수정</button>
+                                        <button type="button" class="btn btn-danger mr-0 p-2">삭제</button>
+                                    </div>
+                                </div>
+                                <p class="comment-text">ABCDEFG</p>
+                                <div class="row">
+                                    <h6 class="col-9 col-lg-10 h6 my-0 pb-0 pt-2"><small>작성일시</small></h6>
+                                    <button type="button" class="col-3 col-lg-2 btn btn-success px-0">답글 달기</button>
+                                </div>
+                            </li>
+                        </ul>
+                        {% endif %}
+                        <!-- End 댓글 리스트 -->
+                    </div>
+                </div>
+            </div>
+            <!-- End 뷰어 -->
+        </div>
+
+    </div>
+{% endblock %}
