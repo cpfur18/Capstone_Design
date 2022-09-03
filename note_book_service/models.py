@@ -16,6 +16,9 @@ class Prod(models.Model):
     prod_reg_date = models.CharField(max_length=100)
     tags = models.ManyToManyField(Tag, through='Prod_Tag')
 
+    def __str__(self):
+        return f'[{self.prod_id}] {self.prod_name}'
+
 class Prod_Tag(models.Model):
     prod = models.ForeignKey(Prod, on_delete=models.CASCADE, related_name='related_item')
     name = models.ForeignKey(Tag, on_delete=models.CASCADE)
@@ -31,7 +34,7 @@ class Prod_property(models.Model):
     option_Content = models.CharField(max_length=15, null=True)
 
     def __str__(self):
-        return self.prod_id
+        return f'{self.prod_id} | 옵션 : {self.option_id}  {self.option_title} {self.option_Content}'
 
 # 노트북 이미지
 class Prod_img(models.Model):
@@ -51,7 +54,7 @@ class Prod_ratings(models.Model):
     price = models.FloatField()
 
     def __str__(self):
-        return self.prod_id
+        return f'{self.prod_id}'
 
 # CPU 벤치마크 자료
 class Passmark_cpu_info(models.Model):
