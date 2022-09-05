@@ -26,8 +26,8 @@
                     {% if posts %}
                         {% for post in posts %}
                             <tr class="row">
-                                <td class="col-1 align-right"><a href="#"><h6 class="h6 small">{{ post.id }}</h6></a></td>
-                                <td class="col-3"><a href="{% url 'board:postinfo' %}"><h6 class="h6 small">{{ post.title }}</h6></a></td>
+                                <td class="col-1 align-right"><a href="{% url 'board:read' post.id%}"><h6 class="h6 small">{{ post.id }}</h6></a></td>
+                                <td class="col-3"><a href="#"><h6 class="h6 small">{{ post.title }}</h6></a></td>
                                 <td class="col-3 align-right"><a href="#"><h6 class="h6 small">{{ post.writer }}</h6></a></td>
                                 <td class="col-3 align-center"><a href="#"><h6 class="h6 small">{{ post.create_date }}</h6></a></td>
                             </tr>

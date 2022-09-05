@@ -2,9 +2,12 @@
 {% block content %}
 {% load static %}
 {% include 'comm_UI1.html' %}
+    
     <!-- 게시글 뷰어 -->
-                <button type="button" class="btn btn-warning px-3">수정</button>
-                <button type="button" class="btn btn-danger px-3 mx-1">삭제</button>
+                {% if request.user == post.writer %}
+                <a class="btn btn-warning px-3" href="/board/update/{{post.id}}">수정</button>
+                <a class="btn btn-danger px-3 mx-1" href="/board/delete/{{post.id}}"></a>>삭제</button>
+                {% endif %}
                 <a class="btn btn-success px-3" href="{% url 'board:community' %}">글 목록</a>
             </div>
         </div>
@@ -14,7 +17,8 @@
             <div class="col-md-9">
                 <div class="card mb-3 p-3">
                     <div class="row g-0">
-                        <strong class="card-title mb-4 h3">게시글 예시</strong>
+                    {% if post %}                    
+                        <strong class="card-title mb-4 h3">{{post.title}}</strong>
                         <div class="row">
                             <!--프로필 아이콘은 -->
                             <div class="col-6 text-success media d-flex">
@@ -26,14 +30,15 @@
                         <hr class="my-3"/>
                         <div class="card-body">
                             <p class="card-text">
-                                <a href="#">
+                                <!--<a href="#">
                                     <img src="{% static 'test img/legion 5i pro.jpg' %}" class="card-img-top" alt="...">
-                                </a>
-                                정말 좋아요
+                                </a>-->
+                                {{post.contents}}
                             </p>
                         </div>
+                    {% endif %}
                         <hr class="my-3"/>
-                        <div class="mb-4 h3">댓글 1</div>
+                        <!--<div class="mb-4 h3">댓글개수 1</div>-->
                         <!-- 댓글 등록 : 로그인 시에만 등록 가능-->
                         {% if user.is_authenticated %}
                         <div class="text-success d-flex row pr-0">
@@ -79,6 +84,5 @@
             </div>
             <!-- End 뷰어 -->
         </div>
-
     </div>
 {% endblock %}
