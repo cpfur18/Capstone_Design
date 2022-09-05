@@ -31,7 +31,7 @@ def wrt(request):
             'best_wrt_list' : best_wrt_list,}
     return render(request, 'board/write.html', wrtt)
 
-@login_required(login_url='/login')
+@login_required(login_url='/login') #로그인 유효성
 def create(request):
     if request.method == "GET":
         postForm = PostForm() #만든 데이터를 딕셔너리 형태로 넘겨줌
@@ -52,26 +52,36 @@ def list(request):
     context = {'posts':posts}
     return render(request, "board/community.html", context)
 
-#def read(request, bid):
-#    post = Post.object.get(id=bid)
-#    context = {'post': post}
-#    return render('/board/list/')
-#    return render(request, "note_book_service/postinfo.html", context)
+def read(request, bid):
+    post = Post.objects.get(id=bid)
+    context = {'post': post}
+    return render(request, "board/postinfo.html", context)
+    #return redirect()
 
-#def delete(request, bid):
-#    post = Post.object.get(id=bid)
-#    post.delete()
-#    return redirect("note_book_service/community.html")
+@login_required(login_url='/login')
+def delete(request, bid):
+    post = Post.objects.get(id=bid)
+    context = {'post':post}
+    if request.user != post.writer:
+       return redirect('/board/read/'+str(bid))
+    else:
+        post.delete()
+        posts = Post.objects.all().order_by('-id')
+        context = {'posts':posts}
+    return render(request, "board/community.html", context)
 
-#def update(request, bid): #html에서 actions안 달면 현재 접속한 url그대로 감
-#    post = Post.objects.get(id=bid)
-#    if request.method=="GET":
-#        postForm = PostForm(instance=post) #조회한 내용이 입력 양식에 제대로 들어가 있는지 확인
-#        context = {'postForm':postForm}
-#        return render(request, "note_book_service/community.html", context)       
-#    elif request.method=="POST"
-#    postForm = PostForm(request.POST ,instance=post)
-#    if postForm.is_valid():
-#        post = postForm.save(commit=False)
-#        post.save()
-#    return redirect("note_book_service/community.html")
+@login_required(login_url='/login')
+def update(request, bid): #html에서 actions안 달면 현재 접속한 url그대로 감
+    post = Post.objects.get(id=bid)
+    if request.user != post.writer:
+       return redirect('/board/read/' +str(bid))
+    if request.method=="GET":
+        postForm = PostForm(instance=post) #조회한 내용이 입력 양식에 제대로 들어가 있는지 확인
+        context = {'postForm':postForm}
+        return render(request, "board/community.html", context)       
+    elif request.method=="POST":
+        postForm = PostForm(request.POST ,instance=post)
+    if postForm.is_valid():
+        post = postForm.save(commit=False)
+        post.save()
+    return redirect("board/community.html")
