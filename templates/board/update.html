@@ -10,11 +10,11 @@
         {% include 'comm_UI2.html' %}
             <!-- 웹 에디터.-->
             <div class="col-md-9 mb-3">
-                <form action="/board/create"method="post">
+                <form  method="post">
                     {% csrf_token %}
                     {{ PostForm }}
-                    <input name="title" type="text" class="form-control mb-1" placeholder="제목">
-                    <textarea name="contents" id="summernote"></textarea>
+                    <input name="title" type="text" class="form-control mb-1" placeholder="" value="{{post.title}}">
+                    <textarea name="contents" id="summernote">{{post.contents}}</textarea>
                     <input type="submit" value="등록" class="form-control mt-1">
                 </form>
             </div>
