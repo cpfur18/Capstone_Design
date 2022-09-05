@@ -27,14 +27,13 @@ def index(request):
     page_obj = paginator.get_page(page)
 
     page_count = len(page_obj.object_list)
-    print("=========================================================================")
-    print(page_obj.object_list)
+
     spec_tags_1 = None
     spec_tags_2 = None
     spec_tags_3 = None
     spec_tags_4 = None
     spec_tags_5 = None
-    print("=========================================================================")
+
     if page_count >= 1:
         spec_tags_1 = page_obj.object_list[0].tags.values('prod', 'name')
     if page_count >= 2:
@@ -119,7 +118,6 @@ def recr(request):
 
     recr_Prod_list = Prod.objects.filter(prod_id__in=id).order_by('-prod_id')
     # recr_Prod_list_spec = Prod_property.objects.filter(prod_id__in=recr_Prod_list).order_by('option_id')
-    print(recr_Prod_list)
 
     paginator = Paginator(recr_Prod_list, 5)  # 페이지당 5개씩 보여주기
     page_obj = paginator.get_page(5)
@@ -151,4 +149,3 @@ def recr(request):
                'spec_tags_5': spec_tags_5,
                }
     return render(request, 'note_book_service/rec_result.html', context)
-    # return render(request, 'note_book_service/rec_result.html')
