@@ -5,8 +5,8 @@
     
     <!-- 게시글 뷰어 -->
                 {% if request.user == post.writer %}
-                <a class="btn btn-warning px-3" href="/board/update/{{post.id}}">수정</button>
-                <a class="btn btn-danger px-3 mx-1" href="/board/delete/{{post.id}}"></a>>삭제</button>
+                <a class="btn btn-warning px-3" href="/board/update/{{post.id}}">수정</a>
+                <a class="btn btn-danger px-3 mx-1" href="/board/delete/{{post.id}}">삭제</a>
                 {% endif %}
                 <a class="btn btn-success px-3" href="{% url 'board:community' %}">글 목록</a>
             </div>
