@@ -2,20 +2,12 @@ from django.shortcuts import render
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from board.forms import PostForm
-#from board.forms import PostForm
 from board.models import Post
 
 def comm(request):
     posts = Post.objects.all().order_by('-id') #object : ORM에서 사용되는 manage 객체 => all은 모두 가져오는 것. get은 하나.
     context = {'posts':posts}
     return render(request, "board/community.html", context)
-
-# Create your views here.
-def getpostwrite(request):
-   title1 = request.POST.get("title")
-   content1 = request.POST.get("content")
-   context = { 'posttitle':title1, 'postcontent':content1}
-   return render(request, "board/community.html", context)
 
 def pstif(request):
     best_pstif = 1
@@ -47,16 +39,10 @@ def create(request):
         context = {'posts':posts}
         return render(request, "board/community.html", context)
 
-def list(request):
-    posts = Post.objects.all().order_by('-id') #object : ORM에서 사용되는 manage 객체 => all은 모두 가져오는 것. get은 하나.
-    context = {'posts':posts}
-    return render(request, "board/community.html", context)
-
 def read(request, bid):
     post = Post.objects.get(id=bid)
     context = {'post': post}
     return render(request, "board/postinfo.html", context)
-    #return redirect()
 
 @login_required(login_url='/login')
 def delete(request, bid):
@@ -77,11 +63,11 @@ def update(request, bid): #html에서 actions안 달면 현재 접속한 url그�
        return redirect('/board/read/' +str(bid))
     if request.method=="GET":
         postForm = PostForm(instance=post) #조회한 내용이 입력 양식에 제대로 들어가 있는지 확인
-        context = {'postForm':postForm}
-        return render(request, "board/community.html", context)       
+        context = {'postForm':postForm, 'post':post}
+        return render(request, "board/update.html", context)       
     elif request.method=="POST":
         postForm = PostForm(request.POST ,instance=post)
-    if postForm.is_valid():
-        post = postForm.save(commit=False)
-        post.save()
-    return redirect("board/community.html")
+        if postForm.is_valid():
+            post = postForm.save(commit=False)
+            post.save()
+        return redirect('/board/read/' +str(bid))
