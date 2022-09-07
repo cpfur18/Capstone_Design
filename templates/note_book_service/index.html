@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
-<script src="{% static 'js/index-navbar.js' %}"></script>
     <!--배너-->
     <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
         <ol class="carousel-indicators">
@@ -70,7 +69,6 @@
 <section>
     <div class="container py-5" id="ranking">
         <div class="row">
-            <div class="col-lg-9">
                 <div class="card mb-3">
                     <div class="row g-1 infinite-container">
                         <!-- 상품 목록 불러오기 -->
@@ -143,32 +141,6 @@
                     {% endif %}
 
                 </div>
-            </div>
-            <div class="col-lg-3">
-                <!--카테고리 고르기-->
-                <div class="align-self-center collapse navbar-collapse flex-fill d-flex justify-content-around sticky-top" id="templatemo_main_nav">
-                    <ul class="nav navbar-nav d-flex justify-content-around p-0 container-fluid border">
-                        <li class="nav-item mx-1">
-                            <p class="text-center"><a class="nav-link text-muted h4" href="#ranking" id="new">최신</a></p>
-                        </li>
-                        <li class="nav-item mx-1">
-                            <p class="text-center"><a class="nav-link text-muted h4" href="#ranking" id="gaming">게이밍</a></p>
-                        </li>
-                        <li class="nav-item mx-1">
-                            <p class="text-center"><a class="nav-link text-muted h4" href="#ranking" id="coding">코딩용</a></p>
-                        </li>
-                        <li class="nav-item mx-1">
-                            <p class="text-center"><a class="nav-link text-muted h4" href="#ranking" id="deskJob">사무용</a></p>
-                        </li>
-                        <li class="nav-item mx-1">
-                            <p class="text-center"><a class="nav-link text-muted h4" href="#ranking" id="videoEdit">영상편집</a></p>
-                        </li>
-                        <li class="nav-item mx-1">
-                            <p class="text-center"><a class="nav-link text-muted h4" href="#ranking" id="videoWatch">영상시청</a></p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
         </div>
     </div>
 </section>
