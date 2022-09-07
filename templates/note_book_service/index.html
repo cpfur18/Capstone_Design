@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
+<script src="{% static 'js/index-navbar.js' %}"></script>
     <!--배너-->
     <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
         <ol class="carousel-indicators">
@@ -64,7 +65,30 @@
             <i class="fas fa-chevron-right"></i>
         </a>
     </div>
-
+<section class="container mt-3 d-none d-lg-block">
+    <div class="align-self-center flex-fill d-flex justify-content-around">
+                    <ul class="nav navbar-nav d-flex justify-content-around p-0 container-fluid list-group-horizontal" id="index-nav-pc">
+                        <li class="nav-item mx-1">
+                            <p class="text-center"><a class="nav-link text-muted h4" href="#ranking" id="new">최신</a></p>
+                        </li>
+                        <li class="nav-item mx-1">
+                            <p class="text-center"><a class="nav-link text-muted h4" href="#ranking" id="gaming">게이밍</a></p>
+                        </li>
+                        <li class="nav-item mx-1">
+                            <p class="text-center"><a class="nav-link text-muted h4" href="#ranking" id="coding">코딩용</a></p>
+                        </li>
+                        <li class="nav-item mx-1">
+                            <p class="text-center"><a class="nav-link text-muted h4" href="#ranking" id="deskJob">사무용</a></p>
+                        </li>
+                        <li class="nav-item mx-1">
+                            <p class="text-center"><a class="nav-link text-muted h4" href="#ranking" id="videoEdit">영상편집</a></p>
+                        </li>
+                        <li class="nav-item mx-1">
+                            <p class="text-center"><a class="nav-link text-muted h4" href="#ranking" id="videoWatch">영상시청</a></p>
+                        </li>
+                    </ul>
+                </div>
+</section>
 <!--    상품 품목 출력-->
 <section>
     <div class="container py-5" id="ranking">
