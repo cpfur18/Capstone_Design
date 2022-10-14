@@ -6,7 +6,7 @@
 import os
 import sys
 
-#프로젝트 절대경로
+#프로젝트 절대경로 기본 C:\Capstone_Design\config 참고!
 sys.path.append('C:\Capstone_Design\config')
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 
@@ -28,9 +28,13 @@ Color_display_option = [217080, 217079, 217078]
 apple_cpu_option = [217166, 211238]
 intel_cpu_option = [130715, 214886, 130713, 130726, 211238, 211239, 130733, 130727, 130717, 130729, 130725, 213419,
                     201885]
+
+# 인텔 I 시리즈 12세대까지 크롤링 확인
 i_intel_cpu_name = ["코어i3-", "코어i5-", "코어i7-", "코어i9-"]
+# AMD 라이젠 5세대 까지 크롤링 확인
 amd_cpu_option = [130715, 130713, 212862, 211238, 211239, 130733, 130730]
 gpu_option = [130614, 214673, 219056]
+# APPLE GPU 크롤링 미구현
 ext_gpu_option = ["그래픽(NVIDIA)", "그래픽(AMD)", 218699, 130628]
 ram_option = [130643, 210963]
 stge_option = [130680, 210951, 130678, 216825]
