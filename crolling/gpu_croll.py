@@ -73,7 +73,7 @@ class gpu_mark:
                 name = gputable.select_one('td > a').text
                 mark = gputable.select_one('td.sorting_1').text
 
-                # 숫자 단위 콤마 제거
+                # 숫자 단위 콤마 제거, 에누리 크롤링 데이터에 맞게 GPU 네이밍 수정
                 mark = int(mark.replace(",", ""))
                 if " Laptop GPU" in name:
                     name = name.replace(' Laptop GPU', '')
@@ -108,6 +108,7 @@ class gpu_mark:
         time.sleep(5)
         self.gpu_croll(self.init_bs4(driver))
 
+        # 누락된 GPU 벤치마크  추가
         Passmark_gpu_info(gpu_name="GTX 1650 Ti Max-Q", gpu_mark=5924).save()
         Passmark_gpu_info(gpu_name="RTX 2070 SUPER Max-Q", gpu_mark=13000).save()
         Passmark_gpu_info(gpu_name="RTX 3060 Max-Q", gpu_mark=11865).save()
