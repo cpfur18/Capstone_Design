@@ -114,6 +114,7 @@ class cpu_mark:
         time.sleep(3)
         self.cpu_croll(self.init_bs4(driver))
 
+        # 누락된 CPU 벤치마크 정보 
         Passmark_cpu_info(cpu_name="AMD Ryzen 5 4650U", cpu_mark=12836).save()
         Passmark_cpu_info(cpu_name="AMD Ryzen 5 4680U", cpu_mark=12900).save()
         Passmark_cpu_info(cpu_name="AMD Ryzen 7 4980U", cpu_mark=17017).save()
