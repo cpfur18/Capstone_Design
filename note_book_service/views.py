@@ -88,6 +88,7 @@ def cmd(request):
             'best_commend_list' : best_commend_list,}
     return render(request, 'note_book_service/recommend.html', comd)
 
+# 상품 상세 정보 페이지
 def recr(request):
     purpose = request.POST['용도']
     wight = request.POST['휴대성']
