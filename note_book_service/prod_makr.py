@@ -18,7 +18,7 @@ django.setup()
 from note_book_service.models import Prod, Prod_property, Prod_ratings, Passmark_cpu_info, Passmark_gpu_info
 
 
-class Get_score_Prod:
+class Get_Score_Prod:
     def Core_Seach_Intel(self, mark_cpu_prod, cent_cpu, cpu_name):
         getMarkCpu = mark_cpu_prod.filter(cpu_name__exact='Intel Core ' + cpu_name).values('cpu_mark')
         getMarkCpu = getMarkCpu.get()

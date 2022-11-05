@@ -11,6 +11,7 @@ from django.core import serializers
 from board.models import Post
 from .models import Prod, Prod_property, Prod_ratings
 from . import check_recr
+from . import spec_info
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 def index(request):
@@ -54,20 +55,25 @@ def index(request):
                }
     return render(request, 'note_book_service/index.html', context)
 
+# 상품 정보 페이지
 def product(request, prod_id):
     Prod_list = Prod.objects.filter(prod_id__contains=prod_id)
     prod_id = Prod.objects.get(prod_id__contains=prod_id)
     ratings = Prod_ratings.objects.filter(prod_id=prod_id)
-    # for prod_list in new_Prod_list:
+    info = spec_info.ProdSpecInfo()
 
     Prod_tags = prod_id.tags.values()
+    Prod_list_spec = Prod_property.objects.filter(prod_id__in=Prod_list.values('prod_id'))\
 
-    Prod_list_spec = Prod_property.objects.filter(prod_id__in=Prod_list.values('prod_id'))
+    info
+
 
     context = {'Prod_list': Prod_list,
                'Prod_list_spec': Prod_list_spec,
                'Prod_tags': Prod_tags,
-               'ratings': ratings
+               'ratings': ratings,
+
+
                }
     return render(request, 'note_book_service/product.html', context)
 
