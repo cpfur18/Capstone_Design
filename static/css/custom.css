@@ -39,3 +39,17 @@ table tr td a {
     color: white !important;
     background-color: #198754 !important;
 }
+.tag-group div label{
+    box-shadow: none !important;
+    border: none !important;
+
+    color: #0dcaf0;
+}
+.tag-group div label:hover{
+    color: #59ab6e;
+    /*background-color: #59ab6e;*/
+}
+.tag-group div input:checked+label{
+    color: red !important;
+    background-color: white !important;
+}
