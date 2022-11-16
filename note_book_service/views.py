@@ -105,13 +105,6 @@ def recr(request):
     disp_color2 = request.POST['디스플레이_색감']
     disp_size = request.POST['디스플레이_크기']
 
-    # print(purpose)
-    # print(wight)
-    # print(price)
-    # print(as_)
-    # # print(disp_media)
-    # print(disp_color2)
-    # print(disp_size)
 
     recr_2 = check_recr.recr_123()
     id = recr_2.check_purpose(purpose)
@@ -123,11 +116,9 @@ def recr(request):
 
 
     recr_Prod_list = Prod.objects.filter(prod_id__in=id).order_by('-prod_id')
-    # recr_Prod_list_spec = Prod_property.objects.filter(prod_id__in=recr_Prod_list).order_by('option_id')
 
     paginator = Paginator(recr_Prod_list, 5)  # 페이지당 5개씩 보여주기
     page_obj = paginator.get_page(5)
-    # page_obj = paginator.get_page(page)
 
     page_count = len(page_obj.object_list)
     spec_tags_1 = None
@@ -155,3 +146,5 @@ def recr(request):
                'spec_tags_5': spec_tags_5,
                }
     return render(request, 'note_book_service/rec_result.html', context)
+
+# def search(request, tag):

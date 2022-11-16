@@ -13,14 +13,16 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 import django
 from django.db.models import Q, F, Sum, Count, Case, When
 django.setup()
-from note_book_service.models import Prod, Prod_property, Passmark_cpu_info, Passmark_gpu_info
+from note_book_service.models import Prod, Prod_property
 
 class CpuInfo:
+    # CPU 기본 정보 set
     def setOptionID(self, prdinf, option_id):
         return prdinf.filter(option_id=option_id)
     def setCpuInfo(self, cpu_ID, title, content):
         return cpu_ID.filter(Q(option_title__contains=title) & Q(option_Content__contains=content)).exists()
 
+    # CPU 상세 성능 get
     def getCpuGen(self, prdinf):
         cpu_gen = prdinf.filter(option_title__contains='c_gen').values('option_Content')
         cpu_gen = cpu_gen.get()
@@ -66,20 +68,26 @@ class CpuInfo:
         if cpu_co:
             context = {'cpu_co': '인텔',
                        'cpu_gen': self.getCpuGen(prdinf),
-                       'c_unit': self.getCpuUint(prdinf),
+                       'cpu_unit': self.getCpuUint(prdinf),
                        'cpu_name': self.getCpuName(prdinf),
                        'cpu_low_speed': cpu_speed[0],
                        'cpu_top_speed': cpu_speed[1]
                        }
+
+            cpu_smp_exp = context['cpu_co'] + "의 " + "" + "성능을 가진 " + context['cpu_unit'] + " CPU 입니다."
+
         # AMD CPU
         else:
             context = {'cpu_co': 'AMD',
                        'cpu_gen': self.getCpuGen(prdinf),
-                       'c_unit': self.getCpuUint(prdinf),
+                       'cpu_unit': self.getCpuUint(prdinf),
                        'cpu_name': self.getCpuName(prdinf),
                        'cpu_low_speed': cpu_speed[0],
                        'cpu_top_speed': cpu_speed[1]
                        }
+            cpu_smp_exp = context['cpu_co'] + "의 " + "" + "성능을 가진 " + context['cpu_unit'] + " CPU 입니다."
+
+        print(cpu_smp_exp)
         return context
 
 
