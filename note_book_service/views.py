@@ -77,14 +77,62 @@ def product(request, prod_id):
                }
     return render(request, 'note_book_service/product.html', context)
 
-def expolre(request, prod_id):
-    Prod_list = Prod.objects.filter(prod_id__contains=prod_id)
-    Prod_list_spec = Prod_property.objects.filter(prod_id__in=Prod_list.values('prod_id'))
 
-    context = {'Prod_list': Prod_list,
-               'Prod_list_spec': Prod_list_spec,
+def explore(request):
+    # 직접 탐색 페이지의 테이블에 띄울 태그 리스트
+    explore_tag_list = ['태그1', 'tag2', 'tag3', 'tag4', 'tag5', 'tag6', 'tag7', 'tag8', 'tag9', 'tag10',
+                        'tag11', 'tag12', 'tag13', 'tag14', 'tag15', 'tag16', 'tag17', 'tag18', 'tag19', 'tag20']
+
+    page = request.GET.get('page', '1')  # 페이지
+
+    Prod_id_list = Prod.objects.order_by('-prod_id')
+
+    paginator = Paginator(Prod_id_list, 5)  # 페이지당 5개씩 보여주기
+    page_obj = paginator.get_page(page)
+
+    page_count = len(page_obj.object_list)
+
+    spec_tags_1 = None
+    spec_tags_2 = None
+    spec_tags_3 = None
+    spec_tags_4 = None
+    spec_tags_5 = None
+
+    if page_count >= 1:
+        spec_tags_1 = page_obj.object_list[0].tags.values('prod', 'name')
+    if page_count >= 2:
+        spec_tags_2 = page_obj.object_list[1].tags.values('prod', 'name')
+    if page_count >= 3:
+        spec_tags_3 = page_obj.object_list[2].tags.values('prod', 'name')
+    if page_count >= 4:
+        spec_tags_4 = page_obj.object_list[3].tags.values('prod', 'name')
+    if page_count == 5:
+        spec_tags_5 = page_obj.object_list[4].tags.values('prod', 'name')
+
+    # submit으로 데이터 전송 받은 경우
+    if request.method == 'GET':
+        data = request.GET.getlist("search_tags")
+        print(data)
+        context = {
+            'search_tags': data,
+            'Prod_list': page_obj,
+            'spec_tags_1': spec_tags_1,
+            'spec_tags_2': spec_tags_2,
+            'spec_tags_3': spec_tags_3,
+            'spec_tags_4': spec_tags_4,
+            'spec_tags_5': spec_tags_5,
+            'explore_tag_list': explore_tag_list
+        }
+    context = {'Prod_list': page_obj,
+               'spec_tags_1': spec_tags_1,
+               'spec_tags_2': spec_tags_2,
+               'spec_tags_3': spec_tags_3,
+               'spec_tags_4': spec_tags_4,
+               'spec_tags_5': spec_tags_5,
+               'explore_tag_list': explore_tag_list
                }
-    return render(request, 'note_book_service/expolre.html', context)
+    return render(request, 'note_book_service/explore.html', context)
+
 
 def cmd(request):
     best_commend = 1

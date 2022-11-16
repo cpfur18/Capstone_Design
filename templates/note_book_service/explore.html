@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<script src="{% static 'js/explore.js' %}"></script>
+    <!-- 직접탐색 -->
+
+    <section class="bg-success py-5">
+        <div class="container">
+            <div class="row align-items-center py-5">
+                <div class="col-md-8 text-white">
+                    <h1>직접 탐색</h1>
+                    <p>
+                        자신이 원하는 조건의 노트북을 찾아 보세요
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <img src="" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Close Banner -->
+    <!-- 검색 태그표-->
+    <section class="container-fluid py-5 d-flex justify-content-center">
+        <div class="row">
+            <form method="GET" action="{% url 'main:explore' %}">
+            <table class="table">
+              <tbody>
+                <tr>
+                    <td class="p-3 align-center">태그</td>
+                        <td class="tag-group">
+                          <div class="btn-group row d-flex justify-content-around" role="group">
+                              {% for i in explore_tag_list %}
+                              <!-- tag_list는 views.explore에서 생성-->
+                              <input type="checkbox" name="search_tags" value="{{i}}" class="btn-check col-3 tags" id="{{i}}" autocomplete="off">
+                              <label class="btn col-3" for="{{i}}">
+                                      {{i}}
+                              </label>
+                              {% endfor %}
+                          </div>
+                        </td>
+                </tr>
+                    <tr class="p-0">
+                        <td class="py-3 px-2 align-center" style="border-bottom: white">선택된 태그</td>
+                            <td class="tag-group"  style="border-bottom: white">
+                                <!-- 선택된 태그의 id는 태그명_Selected-->
+                                <div class="btn-group row d-flex justify-content-around" role="group" id="SelectedTags">
+
+                                </div>
+                            </td>
+                    </tr>
+                    <tr class="p-0">
+
+                    </tr>
+              </tbody>
+            </table>
+                <button class="btn btn-outline-success mx-1" id="tag_submit">
+                    검색
+                </button>
+            </form>
+        </div>
+    </section>
+    <!-- End 검색 태그표 -->
+    <!-- End Content -->
+<!--    상품 품목 출력(index 복붙)-->
+<section>
+    {{ selected_tags }}
+    <div class="container py-5" id="ranking">
+        <div class="row">
+                <div class="card mb-3">
+                    <div class="row g-1 infinite-container">
+                        <!-- 상품 목록 불러오기 -->
+                        {% for Prod in Prod_list %}
+                            <div class="row infinite-item">
+                                <div class="col-md-4">
+                                    <a href="">
+                                        <img src="{% get_static_prefix %}assets/img/{{ Prod.prod_id }}.jpg" alt={{ Prod.prod_id }}, class="card-img-top">
+                                    </a>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <!-- 노트북 이름 출력 -->
+                                        <a href="product/{{ Prod.prod_id }}" class="h2 text-decoration-none text-dark">
+                                            {{ Prod.prod_name }}
+                                        </a>
+                                        <!-- 노트북 태그 출력 -->
+                                        <p class="card-text">
+                                            <br>
+                                            {% for spec in spec_tags_1 %}
+                                                {% if spec.prod == Prod.prod_id %}
+                                                    {{ spec.name }}
+                                                {% endif %}
+                                            {% endfor %}
+
+                                            {% for spec in spec_tags_2 %}
+                                                {% if spec.prod == Prod.prod_id %}
+                                                    {{ spec.name }}
+                                                {% endif %}
+                                            {% endfor %}
+
+                                            {% for spec in spec_tags_3 %}
+                                                {% if spec.prod == Prod.prod_id %}
+                                                    {{ spec.name }}
+                                                {% endif %}
+                                            {% endfor %}
+
+                                            {% for spec in spec_tags_4 %}
+                                                {% if spec.prod == Prod.prod_id %}
+                                                    {{ spec.name }}
+                                                {% endif %}
+                                            {% endfor %}
+
+                                            {% for spec in spec_tags_5 %}
+                                                {% if spec.prod == Prod.prod_id %}
+                                                    {{ spec.name }}
+                                                {% endif %}
+                                            {% endfor %}
+                                            <br><br>
+                                            {{ Prod.prod_reg_date }}
+                                        </p>
+                                        <br><br><br>
+                                        <p class="text-muted"> {{ Prod.prod_price }}원</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="border-top my-3"></div>
+                        {% endfor %}
+
+                        <div class="d-flex justify-content-center" style="display:none;">
+                            <div class="spinner-border" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    {% if Prod_list.has_next %}
+                        <a class="infinite-more-link" href="?page={{ Prod_list.next_page_number }}"></a>
+                    {% endif %}
+
+                </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

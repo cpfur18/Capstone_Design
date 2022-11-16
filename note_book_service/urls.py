@@ -8,4 +8,5 @@ urlpatterns = [
     path('recommend/', views.cmd, name='recommend'),
     path('recommend/result/', views.recr, name='rec_result'),
     path('recommend/result/<prod_id>', views.product, name='rec_result_info'),
+    path('explore/', views.explore, name='explore'),
 ]
