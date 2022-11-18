@@ -11,12 +11,12 @@ from django.core import serializers
 from board.models import Post
 from .models import Prod, Prod_property, Prod_ratings
 from . import check_recr
-from . import spec_info
+# from . import spec_info
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 def index(request):
     # 현 시각 Year, month
-    # now = timezone.now()
+    # now = timezone.now()d
     # kst = now.strftime('%y.%m')
 
     page = request.GET.get('page', '1')  # 페이지
@@ -77,7 +77,7 @@ def product(request, prod_id):
                }
     return render(request, 'note_book_service/product.html', context)
 
-
+# 직접 탐색 페이지
 def explore(request):
     # 직접 탐색 페이지의 테이블에 띄울 태그 리스트
     explore_tag_list = ['태그1', 'tag2', 'tag3', 'tag4', 'tag5', 'tag6', 'tag7', 'tag8', 'tag9', 'tag10',
@@ -111,7 +111,7 @@ def explore(request):
 
     # submit으로 데이터 전송 받은 경우
     if request.method == 'GET':
-        data = request.GET.getlist("search_tags")
+        data = request.GET.getlist("tags")
         print(data)
         context = {
             'search_tags': data,
@@ -194,5 +194,3 @@ def recr(request):
                'spec_tags_5': spec_tags_5,
                }
     return render(request, 'note_book_service/rec_result.html', context)
-
-# def search(request, tag):
