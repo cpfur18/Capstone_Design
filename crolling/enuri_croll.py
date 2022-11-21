@@ -92,12 +92,6 @@ class enuri:
 
                     print(model_id, company, name, price, reg_date)
 
-                    # 리뷰 카운트
-                    # if not review_count:
-                    #     print(model_id, company, name, price, reg_date)
-                    # else:
-                    #     print(model_id, company, name, price, reg_date, review_count[0], review_count[1])
-
                     #============================ 기본 정보 DB저장=============================================
                     try:
                         Prod(prod_id=model_id, prod_company=company, prod_name=name, prod_price=price,

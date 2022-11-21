@@ -30,12 +30,12 @@ class recr_123:
             print("사무용")
         else:
             prod_id = ratings.filter(Q(cpu__gte=1) & Q(gpu__gte=1) & Q(price__gte=4.5))
-            print("#웹서핑, #인강")
+            print("웹서핑, 인강")
         return prod_id.values('prod_id')
 
     def check_price(self, id, price):
-        id.values('prod_id')
-        ratings = Prod_ratings.objects.filter(prod_id_id__in=id.values('prod_id'))
+        ratings = id.filter(prod_id_id__in=id.values('prod_id'))
+        # ratings = Prod_ratings.objects.filter(prod_id_id__in=id.values('prod_id'))
         if price == "price_1": # 60만
             id = ratings.filter(price=5)
             print(5)
@@ -53,24 +53,29 @@ class recr_123:
             print(2.5, "아래")
         return id
 
-    # def check_weight(self, id, wt):
-    #     spec = Prod_property.objects.fliter(prod_id__in=id)
-    #     wt = float(wt.replace('kg', ''))
-    #     if wt == "wt_5":  # 1kg
-    #         id = ratings.fliter(price=5)
-    #         print()
-    #     elif wt == "wt_4":  # 1.5kg
-    #         id = ratings.fliter(price=5)
-    #         print()
-    #     elif wt == "wt_3":  # 1.8kg
-    #         id = ratings.fliter(price=5)
-    #         print()
-    #     elif wt == "wt_2":  # 2.3kg~
-    #         id = ratings.fliter(price=5)
-    #         print()
-    #     else:
-    #         id = ratings.fliter(price=5)
-    #         print()
+    def getWeight(self, id):
+        weight = Prod_property.objects.filter(Q(prod_id__in=id.values('prod_id')) & Q(option_id=9) & Q(option_title__contains='wt'))
+        return weight
+
+    def check_weight(self, id, wt):
+        weight = self.getWeight(id)
+        # __lte 같거나 작다 / __gte 같거나 크다
+        if wt == "wt_5":  # 1kg
+            id = weight.filter(option_Content__lte=1)
+            print()
+        elif wt == "wt_4":  # 1.5kg
+            id = weight.filter(option_Content__lte=1.5)
+            print()
+        elif wt == "wt_3":  # 1.8kg
+            id = weight.filter(option_Content__lte=1.8)
+            print()
+        elif wt == "wt_2":  # 2.3kg~
+            id = weight.filter(option_Content__lte=2.3)
+            print()
+        else:
+            id = weight.filter(option_Content__gte=2.3)
+            print()
+        return id
 
     def check_as(self, id, a):
         if a == "AS_true":

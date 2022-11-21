@@ -534,7 +534,7 @@ class StartScore(Get_score_Prod):
                 print("Check_prod : TRUE")
             except:
                 if id not in apple_list:
-                    cpu_score =self.getCpuScore(spec_prod, mark_cpu_prod)
+                    cpu_score = self.getCpuScore(spec_prod, mark_cpu_prod)
                     print()
                     gpu_score = self.gpu_score(spec_prod, mark_gpu_prod, check_gpu)
                     print()
